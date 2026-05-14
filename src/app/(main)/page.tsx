@@ -4,17 +4,33 @@ import { HOMEPAGE_EVENTS_QUERY, HOMEPAGE_POSTS_QUERY } from "@/sanity/lib/querie
 import EventCard from "@/components/EventCard";
 import NewsCard from "@/components/NewsCard";
 import { toEventCards } from "@/lib/toEventCards";
+import type { NewsCardProps } from "@/components/NewsCard";
 
 export default async function HomePage() {
   const now = new Date().toISOString();
 
   // Parallelle fetches met per-query revalidatie — geen waterval
-  const [rawEvents, posts] = await Promise.all([
+  const [rawEvents, rawPosts] = await Promise.all([
     client.fetch(HOMEPAGE_EVENTS_QUERY, { now }, { next: { revalidate: 60 } }),
     client.fetch(HOMEPAGE_POSTS_QUERY,   {},     { next: { revalidate: 300 } }),
   ]);
 
   const events = toEventCards(rawEvents ?? []);
+
+  const posts: NewsCardProps[] = ((rawPosts ?? []) as unknown[])
+    .filter((p): p is { _id: string; title: string; slug: { current: string } } =>
+      typeof (p as Record<string, unknown>)?._id === "string" &&
+      typeof (p as Record<string, unknown>)?.title === "string" &&
+      typeof ((p as Record<string, unknown>)?.slug as { current?: unknown })?.current === "string"
+    )
+    .map((p) => ({
+      _id:        p._id,
+      title:      p.title,
+      slug:       { current: p.slug.current },
+      publishedAt: ((p as Record<string, unknown>).publishedAt as string | null) ?? null,
+      excerpt:     ((p as Record<string, unknown>).excerpt     as string | null) ?? null,
+      mainImage:   ((p as Record<string, unknown>).mainImage   as NewsCardProps["mainImage"]) ?? null,
+    }));
 
   const nextEvent = events?.[0] ?? null;
 
@@ -193,7 +209,7 @@ export default async function HomePage() {
 
           {posts && posts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post: NonNullable<typeof posts>[number]) => (
+              {posts.map((post) => (
                 <NewsCard key={post._id} {...post} />
               ))}
             </div>

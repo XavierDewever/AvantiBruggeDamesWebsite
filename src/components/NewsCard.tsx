@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
-type NewsCardProps = {
+export type NewsCardProps = {
   _id: string;
   title: string;
   slug: { current: string };
