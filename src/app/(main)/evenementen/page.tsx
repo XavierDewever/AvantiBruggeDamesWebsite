@@ -4,6 +4,7 @@ import { client } from "@/sanity/lib/client";
 import { ALL_EVENTS_QUERY } from "@/sanity/lib/queries";
 import FilterTabs, { type FilterType } from "@/components/FilterTabs";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
+import { toEventCards, type RawEvent } from "@/lib/toEventCards";
 
 export const metadata: Metadata = {
   title: "Evenementen | Ford Unicars Avanti Brugge Dames",
@@ -24,11 +25,12 @@ export default async function EvenementenPage({ searchParams }: Props) {
     ? (type as EventType)
     : null;
 
-  const allEvents: EventCardProps[] = await client.fetch(
+  const raw: RawEvent[] = await client.fetch(
     ALL_EVENTS_QUERY,
     {},
     { next: { revalidate: 60 } },
   );
+  const allEvents: EventCardProps[] = toEventCards(raw ?? []);
 
   const filtered = activeType
     ? allEvents?.filter((e) => e.eventType === activeType)
