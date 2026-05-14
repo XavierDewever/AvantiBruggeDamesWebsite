@@ -40,40 +40,25 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
 
           {/* ── Kolom 1: Logo + tagline ──────────────────────────────────── */}
-          <div className="flex flex-col items-start gap-4">
+          <div className="flex flex-col items-start">
             <Link href="/">
               <Image
                 src="/logo-avanti.jpg"
                 alt="Ford Unicars Avanti Brugge Dames"
-                width={180}
-                height={180}
-                className="h-20 w-auto object-contain"
+                width={240}
+                height={240}
+                className="h-28 w-auto object-contain"
               />
             </Link>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-              Basketbalclub uit Brugge. Lid van Basket Vlaanderen.
-            </p>
           </div>
 
-          {/* ── Kolom 2: Contact + Socials ───────────────────────────────── */}
+          {/* ── Kolom 2: Socials ─────────────────────────────────────────── */}
           <div className="flex flex-col gap-5">
             <h3 className="text-xs font-black text-gray-900 uppercase tracking-widest">
-              Contact & Socials
+              Socials
             </h3>
 
-            <a
-              href="mailto:info@avantibrugge.be"
-              className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-primary transition-colors group"
-            >
-              <span className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-primary/10 flex items-center justify-center shrink-0 transition-colors">
-                <svg className="w-4 h-4 text-gray-500 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                </svg>
-              </span>
-              info@avantibrugge.be
-            </a>
-
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2">
               {socialLinks.map((s) => (
                 <a
                   key={s.label}
