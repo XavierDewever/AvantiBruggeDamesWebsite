@@ -13,17 +13,16 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateStaticParams() {
   const teams = await client.fetch(ALL_TEAM_SLUGS_QUERY, {});
 
-  if (!teams) return [];
+  if (!teams || !Array.isArray(teams)) return [];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   return (teams as any[])
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((t: any) => {
-      const s = t?.slug?.current || t?.slug;
-      if (typeof s === "string") return { slug: s };
-      return null;
-    })
-    .filter((item): item is { slug: string } => item !== null);
+    .filter((t) => t?.slug?.current || t?.slug)
+    .map((t) => {
+      const s = t.slug?.current || t.slug;
+      return { slug: String(s) };
+    });
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
