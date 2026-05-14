@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git --yes)",
+      "Read(//private/tmp/**)",
+      "Bash(npx create-next-app@latest website-temp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git --yes)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/studio)",
+      "Bash(node /Users/xavierdewever/Documents/Claude/Projects/Website/node_modules/typescript/lib/tsc.js --noEmit --project /Users/xavierdewever/Documents/Claude/Projects/Website/tsconfig.json)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"/ → %{http_code}\\\\n\" http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"/events → %{http_code}\\\\n\" http://localhost:3000/events)",
+      "Bash(curl -s -o /dev/null -w \"/events?type=stage → %{http_code}\\\\n\" \"http://localhost:3000/events?type=stage\")",
+      "Bash(mkdir -p /Users/xavierdewever/Documents/Claude/Projects/Website/src/lib \\\\ *)",
+      "Bash(pkill -f \"next dev\" 2>/dev/null; sleep 1 *)",
+      "Bash(npm --prefix /Users/xavierdewever/Documents/Claude/Projects/Website run dev)",
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"/vrijwilligers → %{http_code}\\\\n\" http://localhost:3000/vrijwilligers)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(node node_modules/typescript/lib/tsc.js --noEmit)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

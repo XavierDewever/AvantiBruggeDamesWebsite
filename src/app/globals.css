@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  /* Avanti kleurenpalet */
+  --color-primary:         #CC0000;
+  --color-primary-light:   #FF1A1A;
+  --color-primary-dark:    #990000;
+
+  --color-white:           #FFFFFF;
+  --color-black:           #0A0A0A;
+
+  --color-gray-50:         #F9F9F9;
+  --color-gray-100:        #F2F2F2;
+  --color-gray-200:        #E5E5E5;
+  --color-gray-300:        #D4D4D4;
+  --color-gray-400:        #A3A3A3;
+  --color-gray-500:        #737373;
+  --color-gray-600:        #525252;
+  --color-gray-700:        #404040;
+  --color-gray-800:        #262626;
+  --color-gray-900:        #171717;
+
+  /* Typografie */
+  --font-sans:   var(--font-montserrat), "Montserrat", sans-serif;
+  --font-display: var(--font-montserrat), "Montserrat", sans-serif;
+
+  /* Schaduwen */
+  --shadow-card: 0 2px 12px 0 rgba(0,0,0,0.08);
+
+  /* Animaties */
+  --animate-ticker: ticker 30s linear infinite;
+}
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Sanity Studio isolatie ──────────────────────────────────────────────────
+   Tailwind's preflight zet color:inherit en user-select op form-elementen,
+   wat de tekst-cursor in Sanity Studio onzichtbaar maakt. Alleen de
+   minimaal nodige properties worden hier gereset — de rest laten we aan
+   Sanity's eigen stijlen over.
+   ────────────────────────────────────────────────────────────────────────── */
+.studio-root input,
+.studio-root textarea,
+.studio-root select,
+.studio-root [contenteditable] {
+  color: revert;
+  caret-color: auto;
+  -webkit-user-select: text;
+  user-select: text;
+  pointer-events: auto;
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
