@@ -22,8 +22,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const posts = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
-  return (posts ?? []).map((p: { slug: { current: string } }) => ({ slug: p.slug.current }));
+  const posts: { slug: { current: string | null } | null }[] = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
+  return (posts ?? [])
+    .filter((p): p is { slug: { current: string } } => typeof p.slug?.current === "string")
+    .map((p) => ({ slug: p.slug.current }));
 }
 
 function formatDate(iso: string) {
