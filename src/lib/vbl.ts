@@ -73,7 +73,7 @@ export type VBLCalendarResult = {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function parseVBLDate(datumString: string): Date {
+export function parseVBLDate(datumString: string): Date {
   // Formaat: "DD-MM-YYYY"
   const [day, month, year] = datumString.split("-").map(Number);
   return new Date(year, month - 1, day);

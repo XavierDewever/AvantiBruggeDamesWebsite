@@ -39,16 +39,18 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
 
-          {/* ── Kolom 1: Logo + tagline ──────────────────────────────────── */}
+          {/* ── Kolom 1: Clubnaam ────────────────────────────────────────── */}
           <div className="flex flex-col items-start">
-            <Link href="/">
-              <Image
-                src="/logo-avanti.jpg"
-                alt="Ford Unicars Avanti Brugge Dames"
-                width={240}
-                height={240}
-                className="h-28 w-auto object-contain"
-              />
+            <Link href="/" className="group">
+              <p className="text-xs font-black text-primary uppercase tracking-widest mb-1">
+                Ford Unicars
+              </p>
+              <p className="text-2xl font-black text-gray-900 uppercase leading-tight tracking-tight group-hover:text-primary transition-colors">
+                Avanti Brugge
+              </p>
+              <p className="text-2xl font-black text-gray-900 uppercase leading-tight tracking-tight group-hover:text-primary transition-colors">
+                Dames
+              </p>
             </Link>
           </div>
 
@@ -80,41 +82,29 @@ export default function Footer() {
               In samenwerking met
             </h3>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-4">
 
               {/* Stad Brugge */}
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 overflow-hidden border border-gray-100">
-                  <Image
-                    src="/logo_brugge.png"
-                    alt="Stad Brugge"
-                    width={48}
-                    height={34}
-                    className="w-10 h-auto object-contain"
-                  />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-gray-800">Stad Brugge</p>
-                  <p className="text-xs text-gray-400">Officiële partner</p>
-                </div>
-              </div>
+              <a href="https://www.brugge.be" target="_blank" rel="noopener noreferrer" aria-label="Stad Brugge">
+                <Image
+                  src="/logo_brugge.png"
+                  alt="Stad Brugge"
+                  width={120}
+                  height={60}
+                  className="h-12 w-auto object-contain"
+                />
+              </a>
 
               {/* Uitpas */}
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-gray-50 flex items-center justify-center shrink-0 overflow-hidden border border-gray-100">
-                  <Image
-                    src="/UITPAS-logo.png"
-                    alt="Uitpas"
-                    width={40}
-                    height={40}
-                    className="w-10 h-auto object-contain"
-                  />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-gray-800">Uitpas</p>
-                  <p className="text-xs text-gray-400">Lid van Uitpas</p>
-                </div>
-              </div>
+              <a href="https://www.brugge.be/uitpas" target="_blank" rel="noopener noreferrer" aria-label="Uitpas">
+                <Image
+                  src="/UITPAS-logo.png"
+                  alt="Uitpas"
+                  width={120}
+                  height={60}
+                  className="h-12 w-auto object-contain"
+                />
+              </a>
 
             </div>
           </div>
