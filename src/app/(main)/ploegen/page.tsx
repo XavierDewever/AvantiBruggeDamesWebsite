@@ -22,11 +22,11 @@ type Team = {
 };
 
 export default async function PloegenPage() {
-  const raw: unknown[] = await client.fetch(
+  const raw = await client.fetch(
     ALL_TEAMS_QUERY,
     {},
     { cache: "no-store" },
-  );
+  ) as unknown[];
 
   const teams: Team[] = (raw ?? [])
     .filter((t): t is Record<string, unknown> =>

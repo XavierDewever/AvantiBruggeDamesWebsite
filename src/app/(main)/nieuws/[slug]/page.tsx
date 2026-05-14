@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const posts: unknown[] = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
+  const posts = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
   return (posts ?? [])
     .filter((p): p is { slug: { current: string } } =>
       typeof (p as { slug?: { current?: unknown } })?.slug?.current === "string"

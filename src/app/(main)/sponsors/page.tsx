@@ -20,11 +20,11 @@ type Sponsor = {
 };
 
 export default async function SponsorsPage() {
-  const raw: unknown[] = await client.fetch(
+  const raw = await client.fetch(
     ALL_SPONSORS_QUERY,
     {},
     { cache: "no-store" },
-  );
+  ) as unknown[];
 
   const sponsors: Sponsor[] = (raw ?? [])
     .filter((s): s is Record<string, unknown> =>

@@ -26,11 +26,11 @@ export default async function EventsPage({ searchParams }: Props) {
     : null;
 
   // Één fetch — filteren op de server op basis van de URL param
-  const raw: unknown[] = await client.fetch(
+  const raw = await client.fetch(
     ALL_EVENTS_QUERY,
     {},
     { next: { revalidate: 60 } },
-  );
+  ) as unknown[];
   const allEvents: EventCardProps[] = toEventCards(raw ?? []);
 
   const filtered = activeType

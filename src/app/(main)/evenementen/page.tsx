@@ -25,11 +25,11 @@ export default async function EvenementenPage({ searchParams }: Props) {
     ? (type as EventType)
     : null;
 
-  const raw: unknown[] = await client.fetch(
+  const raw = await client.fetch(
     ALL_EVENTS_QUERY,
     {},
     { next: { revalidate: 60 } },
-  );
+  ) as unknown[];
   const allEvents: EventCardProps[] = toEventCards(raw ?? []);
 
   const filtered = activeType
