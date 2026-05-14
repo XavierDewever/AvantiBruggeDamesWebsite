@@ -83,11 +83,13 @@ export default async function HomePage() {
                       weekday: "long",
                       day: "numeric",
                       month: "long",
+                      timeZone: "Europe/Brussels",
                     })}
                     {" · "}
                     {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
                       hour: "2-digit",
                       minute: "2-digit",
+                      timeZone: "Europe/Brussels",
                     })}
                   </>
                 ) : (

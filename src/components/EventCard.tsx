@@ -35,17 +35,20 @@ function formatDateRange(start: string, end?: string | null) {
     endDate &&
     startDate.toDateString() === endDate.toDateString();
 
+  const tz = "Europe/Brussels";
+
   const dateStr = startDate.toLocaleDateString("nl-BE", {
     weekday: "short",
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: tz,
   });
 
   if (!endDate) return dateStr;
   if (sameDay) {
-    const startTime = startDate.toLocaleTimeString("nl-BE", { hour: "2-digit", minute: "2-digit" });
-    const endTime = endDate.toLocaleTimeString("nl-BE", { hour: "2-digit", minute: "2-digit" });
+    const startTime = startDate.toLocaleTimeString("nl-BE", { hour: "2-digit", minute: "2-digit", timeZone: tz });
+    const endTime = endDate.toLocaleTimeString("nl-BE", { hour: "2-digit", minute: "2-digit", timeZone: tz });
     return `${dateStr} · ${startTime}–${endTime}`;
   }
 
@@ -54,6 +57,7 @@ function formatDateRange(start: string, end?: string | null) {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: tz,
   });
   return `${dateStr} → ${endStr}`;
 }
