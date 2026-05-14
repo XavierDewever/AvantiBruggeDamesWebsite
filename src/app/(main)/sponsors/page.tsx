@@ -20,15 +20,27 @@ type Sponsor = {
 };
 
 export default async function SponsorsPage() {
-  const all: Sponsor[] = await client.fetch(
+  const raw: unknown[] = await client.fetch(
     ALL_SPONSORS_QUERY,
     {},
     { cache: "no-store" },
   );
 
-  const sponsors = all ?? [];
+  const sponsors: Sponsor[] = (raw ?? [])
+    .filter((s): s is Record<string, unknown> =>
+      !!s && typeof s === "object" &&
+      typeof (s as Record<string, unknown>)._id === "string"
+    )
+    .map((s) => ({
+      _id:         s._id as string,
+      name:        (s.name as string | null) ?? "Naamloze sponsor",
+      logo:        (s.logo as Sponsor["logo"]) ?? undefined,
+      websiteUrl:  (s.websiteUrl as string | null) ?? null,
+      type:        (s.type as string | null) ?? null,
+      omschrijving:(s.omschrijving as string | null) ?? null,
+    }));
   const hoofdsponsors = sponsors.filter((s) => s.type === "hoofdsponsor");
-  const overige      = sponsors.filter((s) => s.type !== "hoofdsponsor");
+  const overige       = sponsors.filter((s) => s.type !== "hoofdsponsor");
 
   return (
     <>
