@@ -86,16 +86,22 @@ export default async function HomePage() {
                 {nextEvent.title}
               </p>
               <p className="text-gray-400 text-sm">
-                {new Date(nextEvent.startDate).toLocaleDateString("nl-BE", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long",
-                })}
-                {" · "}
-                {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {nextEvent.startDate ? (
+                  <>
+                    {new Date(nextEvent.startDate).toLocaleDateString("nl-BE", {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                    })}
+                    {" · "}
+                    {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </>
+                ) : (
+                  "Datum nog niet bekend"
+                )}
               </p>
               {nextEvent.twizzitUrl && (
                 <a
