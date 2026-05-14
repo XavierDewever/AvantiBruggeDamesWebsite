@@ -61,7 +61,7 @@ export default async function CmsPage({ params }: Props) {
       {/* ── Inhoud ────────────────────────────────────────────────────── */}
       <section className="bg-white py-12 lg:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PortableTextRenderer value={page.content} />
+          {page.content && <PortableTextRenderer value={page.content} />}
         </div>
       </section>
     </>
