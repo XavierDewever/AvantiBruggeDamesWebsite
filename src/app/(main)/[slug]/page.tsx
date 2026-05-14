@@ -8,8 +8,10 @@ type Props = { params: Promise<{ slug: string }> };
 
 // ── Statische params voor build-time pre-rendering ───────────────────────────
 export async function generateStaticParams() {
-  const pages = await client.fetch(ALL_PAGE_SLUGS_QUERY, {});
-  return (pages ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
+  const pages: { slug: string | null }[] = await client.fetch(ALL_PAGE_SLUGS_QUERY, {});
+  return (pages ?? [])
+    .filter((p): p is { slug: string } => typeof p.slug === "string")
+    .map((p) => ({ slug: p.slug }));
 }
 
 // ── Metadata uit Sanity ──────────────────────────────────────────────────────
