@@ -78,15 +78,17 @@ export default async function LidWordenPage() {
                   ))}
                 </ul>
 
-                <a
-                  href={c.lidTwizzitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-primary font-black uppercase tracking-wider text-sm rounded-xl hover:bg-gray-100 transition-colors"
-                >
-                  Start aanvraag via Twizzit
-                  <ArrowIcon className="w-4 h-4" />
-                </a>
+                {c.lidTwizzitUrl && (
+                  <a
+                    href={c.lidTwizzitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-primary font-black uppercase tracking-wider text-sm rounded-xl hover:bg-gray-100 transition-colors"
+                  >
+                    Start aanvraag via Twizzit
+                    <ArrowIcon className="w-4 h-4" />
+                  </a>
+                )}
               </div>
             </div>
 
@@ -121,15 +123,17 @@ export default async function LidWordenPage() {
                   ))}
                 </ul>
 
-                <a
-                  href={c.schoolTwizzitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
-                >
-                  Inschrijven voor Basketbalschool
-                  <ArrowIcon className="w-4 h-4" />
-                </a>
+                {c.schoolTwizzitUrl && (
+                  <a
+                    href={c.schoolTwizzitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
+                  >
+                    Inschrijven voor Basketbalschool
+                    <ArrowIcon className="w-4 h-4" />
+                  </a>
+                )}
               </div>
             </div>
 
