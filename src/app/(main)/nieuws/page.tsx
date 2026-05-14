@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 };
 
 type Post = {
-  _id: string;
-  title: string;
-  slug: { current: string };
+  _id: string | null;
+  title: string | null;
+  slug: { current: string | null } | null;
   publishedAt?: string | null;
   excerpt?: string | null;
-  mainImage?: { asset?: { _ref: string }; alt?: string } | null;
+  mainImage?: { asset?: unknown; alt?: string } | null;
 };
 
 function formatDate(iso: string) {
@@ -29,22 +29,7 @@ function formatDate(iso: string) {
 }
 
 export default async function NieuwsPage() {
-  const raw = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" }) as unknown[];
-
-  const posts: Post[] = (raw ?? [])
-    .filter((p): p is { _id: string; title: string; slug: { current: string } } =>
-      typeof (p as Record<string, unknown>)?._id === "string" &&
-      typeof (p as Record<string, unknown>)?.title === "string" &&
-      typeof ((p as Record<string, unknown>)?.slug as { current?: unknown })?.current === "string"
-    )
-    .map((p) => ({
-      _id: p._id,
-      title: p.title,
-      slug: { current: p.slug.current },
-      publishedAt: ((p as Record<string, unknown>).publishedAt as string | null) ?? null,
-      excerpt:     ((p as Record<string, unknown>).excerpt     as string | null) ?? null,
-      mainImage:   ((p as Record<string, unknown>).mainImage   as Post["mainImage"])  ?? null,
-    }));
+  const posts = await client.fetch<Post[]>(ALL_POSTS_QUERY, {}, { cache: "no-store" });
 
   return (
     <>
@@ -68,12 +53,14 @@ export default async function NieuwsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => {
                 const imgSrc = post.mainImage?.asset
-                  ? urlFor(post.mainImage).width(600).height(340).fit("crop").url()
+                  ? urlFor(post.mainImage as Parameters<typeof urlFor>[0]).width(600).height(340).fit("crop").url()
                   : null;
+                const slugCurrent = post.slug?.current ?? "";
+                const displayTitle = post.title ?? "Nieuwsbericht";
 
                 return (
                   <article
-                    key={post._id}
+                    key={post._id ?? slugCurrent}
                     className="group flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow duration-200"
                   >
                     {/* Afbeelding */}
@@ -81,7 +68,7 @@ export default async function NieuwsPage() {
                       {imgSrc ? (
                         <Image
                           src={imgSrc}
-                          alt={post.mainImage?.alt ?? post.title}
+                          alt={(post.mainImage as { alt?: string } | null)?.alt ?? displayTitle}
                           fill
                           sizes="(max-width: 768px) 100vw, 33vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -103,7 +90,7 @@ export default async function NieuwsPage() {
                         </p>
                       )}
                       <h2 className="font-black text-gray-900 text-base uppercase leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-                        {post.title}
+                        {displayTitle}
                       </h2>
                       {post.excerpt && (
                         <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mt-1">
@@ -111,7 +98,7 @@ export default async function NieuwsPage() {
                         </p>
                       )}
                       <Link
-                        href={`/nieuws/${post.slug.current}`}
+                        href={`/nieuws/${slugCurrent}`}
                         className="mt-auto pt-3 inline-flex items-center gap-1 text-primary text-xs font-bold uppercase tracking-wider hover:gap-2 transition-all"
                       >
                         Lees meer

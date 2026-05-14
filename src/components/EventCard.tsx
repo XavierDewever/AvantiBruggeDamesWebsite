@@ -3,15 +3,15 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
 export type EventCardProps = {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  eventType: string;
-  startDate: string;
+  _id: string | null;
+  title: string | null;
+  slug: { current: string | null } | null;
+  eventType: string | null;
+  startDate: string | null;
   endDate?: string | null;
   status?: string | null;
   twizzitUrl?: string | null;
-  image?: { asset?: { _ref: string }; alt?: string } | null;
+  image?: { asset?: unknown; alt?: string } | null;
   /** Volledige kaartvariant voor de events-pagina (grotere afbeelding, prominentere knop) */
   variant?: "default" | "full";
 };
@@ -69,13 +69,17 @@ export default function EventCard({
   image,
   variant = "default",
 }: EventCardProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const imgSrc = image?.asset
-    ? urlFor(image).width(720).height(variant === "full" ? 400 : 340).fit("crop").url()
+    ? urlFor(image as Parameters<typeof urlFor>[0]).width(720).height(variant === "full" ? 400 : 340).fit("crop").url()
     : null;
 
   const statusCfg = status ? STATUS_CONFIG[status] : null;
   const isVolzet = status === "volzet";
   const imgHeight = variant === "full" ? "h-52" : "h-44";
+  const displayTitle = title ?? "Evenement";
+  const displayType = eventType ?? "event";
+  const slugCurrent = slug?.current ?? "";
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-lg bg-primary text-white shadow-card">
@@ -85,7 +89,7 @@ export default function EventCard({
         {imgSrc ? (
           <Image
             src={imgSrc}
-            alt={image?.alt ?? title}
+            alt={(image as { alt?: string } | null)?.alt ?? displayTitle}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover opacity-60 group-hover:opacity-75 transition-opacity duration-300"
@@ -110,7 +114,7 @@ export default function EventCard({
 
         {/* Type badge */}
         <span className="absolute top-3 left-3 bg-black/30 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded">
-          {TYPE_LABEL[eventType] ?? eventType}
+          {TYPE_LABEL[displayType] ?? displayType}
         </span>
 
         {/* Status badge */}
@@ -128,10 +132,10 @@ export default function EventCard({
       <div className="flex flex-1 flex-col p-5 gap-3">
         <div>
           <p className="text-white/65 text-xs font-semibold uppercase tracking-wide mb-1.5">
-            {formatDateRange(startDate, endDate)}
+            {startDate ? formatDateRange(startDate, endDate) : "Datum niet beschikbaar"}
           </p>
           <h3 className="font-black text-base lg:text-lg uppercase leading-tight line-clamp-2">
-            {title}
+            {displayTitle}
           </h3>
         </div>
 
@@ -140,7 +144,7 @@ export default function EventCard({
           {/* Twizzit-knop — prominent, volledig breed */}
           {twizzitUrl ? (
             <a
-              href={isVolzet ? "#" : (twizzitUrl ?? "#")}
+              href={isVolzet ? "#" : twizzitUrl}
               target={isVolzet ? undefined : "_blank"}
               rel="noopener noreferrer"
               aria-disabled={isVolzet}
@@ -163,7 +167,7 @@ export default function EventCard({
 
           {/* Meer info link */}
           <Link
-            href={`/evenementen/${slug.current}`}
+            href={`/evenementen/${slugCurrent}`}
             className="text-center w-full px-4 py-2 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors"
           >
             Meer info

@@ -4,7 +4,6 @@ import { client } from "@/sanity/lib/client";
 import { ALL_EVENTS_QUERY } from "@/sanity/lib/queries";
 import FilterTabs, { type FilterType } from "@/components/FilterTabs";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
-import { toEventCards } from "@/lib/toEventCards";
 
 export const metadata: Metadata = {
   title: "Evenementen | Ford Unicars Avanti Brugge Dames",
@@ -25,12 +24,11 @@ export default async function EvenementenPage({ searchParams }: Props) {
     ? (type as EventType)
     : null;
 
-  const raw = await client.fetch(
+  const allEvents = await client.fetch<EventCardProps[]>(
     ALL_EVENTS_QUERY,
     {},
     { next: { revalidate: 60 } },
-  ) as unknown[];
-  const allEvents: EventCardProps[] = toEventCards(raw ?? []);
+  );
 
   const filtered = activeType
     ? allEvents?.filter((e) => e.eventType === activeType)
@@ -57,9 +55,9 @@ export default async function EvenementenPage({ searchParams }: Props) {
             clubevenementen. Schrijf je rechtstreeks in via Twizzit.
           </p>
           <div className="flex flex-wrap gap-6 mt-8">
-            <Stat label="Stages"     value={counts.stage} />
+            <Stat label="Stages"          value={counts.stage} />
             <Stat label="Clubevenementen" value={counts.event} />
-            <Stat label="Totaal"     value={counts.all}   />
+            <Stat label="Totaal"          value={counts.all}   />
           </div>
         </div>
       </section>
@@ -74,7 +72,7 @@ export default async function EvenementenPage({ searchParams }: Props) {
           {filtered?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((event) => (
-                <EventCard key={event._id} {...event} variant="full" />
+                <EventCard key={event._id ?? ""} {...event} variant="full" />
               ))}
             </div>
           ) : (

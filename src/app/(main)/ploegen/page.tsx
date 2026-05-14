@@ -11,38 +11,22 @@ export const metadata: Metadata = {
 };
 
 type Team = {
-  _id: string;
-  name: string;
-  slug: { current: string };
+  _id: string | null;
+  name: string | null;
+  slug: { current: string | null } | null;
   categorie: "bovenbouw" | "onderbouw" | null;
-  teamPhoto?: { asset: unknown; alt?: string };
-  coachName?: string;
-  assistantCoach?: string;
-  basketVlaanderenId?: string;
+  teamPhoto?: { asset: unknown; alt?: string } | null;
+  coachName?: string | null;
+  assistantCoach?: string | null;
+  basketVlaanderenId?: string | null;
 };
 
 export default async function PloegenPage() {
-  const raw = await client.fetch(
+  const teams = await client.fetch<Team[]>(
     ALL_TEAMS_QUERY,
     {},
     { cache: "no-store" },
-  ) as unknown[];
-
-  const teams: Team[] = (raw ?? [])
-    .filter((t): t is Record<string, unknown> =>
-      !!t && typeof t === "object" &&
-      typeof (t as Record<string, unknown>)._id === "string"
-    )
-    .map((t) => ({
-      _id:              t._id as string,
-      name:             (t.name as string | null) ?? "Naamloos team",
-      slug:             { current: ((t.slug as { current?: string | null } | null)?.current) ?? "" },
-      categorie:        (t.categorie as "bovenbouw" | "onderbouw" | null) ?? null,
-      teamPhoto:        (t.teamPhoto as Team["teamPhoto"]) ?? undefined,
-      coachName:        (t.coachName as string | null) ?? undefined,
-      assistantCoach:   (t.assistantCoach as string | null) ?? undefined,
-      basketVlaanderenId: (t.basketVlaanderenId as string | null) ?? undefined,
-    }));
+  );
 
   const bovenbouw = (teams ?? []).filter((t) => t.categorie === "bovenbouw");
   const onderbouw = (teams ?? []).filter((t) => t.categorie === "onderbouw");
@@ -73,7 +57,7 @@ export default async function PloegenPage() {
             <TeamSection label="Onderbouw" teams={onderbouw} />
           )}
 
-          {teams?.length === 0 && (
+          {(teams ?? []).length === 0 && (
             <div className="py-24 text-center border-2 border-dashed border-gray-200 rounded-lg">
               <p className="text-gray-400 font-semibold uppercase tracking-wide text-sm">
                 Nog geen ploegen toegevoegd
@@ -102,10 +86,12 @@ function TeamSection({ label, teams }: { label: string; teams: Team[] }) {
             ? urlFor(team.teamPhoto as Parameters<typeof urlFor>[0]).width(400).height(280).fit("crop").url()
             : null;
 
+          const slugCurrent = team.slug?.current ?? "";
+
           return (
             <Link
-              key={team._id}
-              href={`/ploegen/${team.slug.current}`}
+              key={team._id ?? slugCurrent}
+              href={`/ploegen/${slugCurrent}`}
               className="group rounded-lg overflow-hidden border border-gray-100 hover:border-primary hover:shadow-lg transition-all duration-200"
             >
               {/* Foto */}
@@ -132,7 +118,7 @@ function TeamSection({ label, teams }: { label: string; teams: Team[] }) {
               {/* Info */}
               <div className="px-4 py-4">
                 <h3 className="font-black text-gray-900 uppercase tracking-wide text-sm group-hover:text-primary transition-colors">
-                  {team.name}
+                  {team.name ?? "Naamloos team"}
                 </h3>
                 {team.coachName && (
                   <p className="mt-1 text-xs text-gray-500">Coach: {team.coachName}</p>

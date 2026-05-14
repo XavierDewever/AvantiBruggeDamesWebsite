@@ -10,24 +10,36 @@ import VBLStandings from "@/components/VBLStandings";
 
 type Props = { params: Promise<{ slug: string }> };
 
+type TeamSlugRow = { slug: string | null };
+
+type Team = {
+  _id: string | null;
+  name: string | null;
+  slug: { current: string | null } | null;
+  categorie: string | null;
+  teamPhoto?: { asset?: unknown; alt?: string } | null;
+  basketVlaanderenId?: string | null;
+  coachName?: string | null;
+  assistantCoach?: string | null;
+  trainingHours?: {
+    day?: string | null;
+    startTime?: string | null;
+    endTime?: string | null;
+    location?: string | null;
+  }[] | null;
+  description?: string | null;
+};
+
 export async function generateStaticParams() {
-  const teams = await client.fetch(ALL_TEAM_SLUGS_QUERY, {});
-
-  if (!teams || !Array.isArray(teams)) return [];
-
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  return (teams as any[])
-    .filter((t) => t?.slug?.current || t?.slug)
-    .map((t) => {
-      const s = t.slug?.current || t.slug;
-      return { slug: String(s) };
-    });
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+  const teams = await client.fetch<TeamSlugRow[]>(ALL_TEAM_SLUGS_QUERY, {});
+  return (teams ?? [])
+    .filter((t) => !!t.slug)
+    .map((t) => ({ slug: t.slug as string }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const team = await client.fetch(
+  const team = await client.fetch<Team | null>(
     TEAM_BY_SLUG_QUERY,
     { slug },
     { next: { revalidate: 3600 } },
@@ -42,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PloegPage({ params }: Props) {
   const { slug } = await params;
 
-  const team = await client.fetch(
+  const team = await client.fetch<Team | null>(
     TEAM_BY_SLUG_QUERY,
     { slug },
     { next: { revalidate: 3600 } },
@@ -55,7 +67,7 @@ export default async function PloegPage({ params }: Props) {
     : { calendar: { upcoming: [], past: [], reeksGuid: null }, standings: [] };
 
   const photoSrc = team.teamPhoto?.asset
-    ? urlFor(team.teamPhoto).width(1200).height(600).fit("crop").url()
+    ? urlFor(team.teamPhoto as Parameters<typeof urlFor>[0]).width(1200).height(600).fit("crop").url()
     : null;
 
   const CATEGORIE_LABEL: Record<string, string> = {
@@ -85,7 +97,7 @@ export default async function PloegPage({ params }: Props) {
             </span>
           )}
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black uppercase leading-none tracking-tight">
-            {team.name}
+            {team.name ?? "Ploeg"}
           </h1>
           {team.coachName && (
             <p className="text-gray-300 text-lg">
@@ -128,27 +140,17 @@ export default async function PloegPage({ params }: Props) {
               <div>
                 <SectionLabel>Trainingsuren</SectionLabel>
                 <ul className="rounded-lg border border-gray-100 divide-y divide-gray-100">
-                  {(team.trainingHours ?? []).map(
-                    (
-                      slot: {
-                        day?: string | null;
-                        startTime?: string | null;
-                        endTime?: string | null;
-                        location?: string | null;
-                      },
-                      i: number,
-                    ) => (
-                      <li key={i} className="flex items-center justify-between px-4 py-3 text-sm">
-                        <span className="font-bold text-gray-900 capitalize">{slot.day ?? ""}</span>
-                        <span className="text-gray-500">
-                          {slot.startTime ?? ""}–{slot.endTime ?? ""}
-                          {slot.location && (
-                            <span className="ml-2 text-xs text-gray-400">{slot.location}</span>
-                          )}
-                        </span>
-                      </li>
-                    ),
-                  )}
+                  {(team.trainingHours ?? []).map((slot, i) => (
+                    <li key={i} className="flex items-center justify-between px-4 py-3 text-sm">
+                      <span className="font-bold text-gray-900 capitalize">{slot.day ?? ""}</span>
+                      <span className="text-gray-500">
+                        {slot.startTime ?? ""}–{slot.endTime ?? ""}
+                        {slot.location && (
+                          <span className="ml-2 text-xs text-gray-400">{slot.location}</span>
+                        )}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             )}

@@ -4,7 +4,6 @@ import { client } from "@/sanity/lib/client";
 import { ALL_EVENTS_QUERY } from "@/sanity/lib/queries";
 import FilterTabs, { type FilterType } from "@/components/FilterTabs";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
-import { toEventCards } from "@/lib/toEventCards";
 
 export const metadata: Metadata = {
   title: "Evenementen & Stages | Ford Unicars Avanti Brugge Dames",
@@ -25,19 +24,16 @@ export default async function EventsPage({ searchParams }: Props) {
     ? (type as EventType)
     : null;
 
-  // Één fetch — filteren op de server op basis van de URL param
-  const raw = await client.fetch(
+  const allEvents = await client.fetch<EventCardProps[]>(
     ALL_EVENTS_QUERY,
     {},
     { next: { revalidate: 60 } },
-  ) as unknown[];
-  const allEvents: EventCardProps[] = toEventCards(raw ?? []);
+  );
 
   const filtered = activeType
     ? allEvents?.filter((e) => e.eventType === activeType)
     : allEvents;
 
-  // Tellers voor de tabs — berekend uit de volledige dataset
   const counts: Record<FilterType, number> = {
     all:   allEvents?.length ?? 0,
     stage: allEvents?.filter((e) => e.eventType === "stage").length ?? 0,
@@ -59,9 +55,9 @@ export default async function EventsPage({ searchParams }: Props) {
             clubevenementen. Schrijf je rechtstreeks in via Twizzit.
           </p>
           <div className="flex flex-wrap gap-6 mt-8">
-            <Stat label="Stages"     value={counts.stage} />
+            <Stat label="Stages"          value={counts.stage} />
             <Stat label="Clubevenementen" value={counts.event} />
-            <Stat label="Totaal"     value={counts.all}   />
+            <Stat label="Totaal"          value={counts.all}   />
           </div>
         </div>
       </section>
@@ -69,20 +65,14 @@ export default async function EventsPage({ searchParams }: Props) {
       {/* ── Grid ───────────────────────────────────────────────────────── */}
       <section className="bg-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/*
-            FilterTabs is een client component (useSearchParams).
-            Suspense is vereist door Next.js wanneer useSearchParams
-            buiten een Suspense-grens gebruikt wordt.
-          */}
           <Suspense fallback={<TabsSkeleton />}>
             <FilterTabs counts={counts} />
           </Suspense>
 
-          {/* Grid — server-rendered met reeds gefilterde data */}
           {filtered?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((event) => (
-                <EventCard key={event._id} {...event} variant="full" />
+                <EventCard key={event._id ?? ""} {...event} variant="full" />
               ))}
             </div>
           ) : (
@@ -94,15 +84,11 @@ export default async function EventsPage({ searchParams }: Props) {
   );
 }
 
-// ── Sub-componenten ──────────────────────────────────────────────────────────
-
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex flex-col">
       <span className="text-3xl font-black text-white">{value}</span>
-      <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-        {label}
-      </span>
+      <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">{label}</span>
     </div>
   );
 }
@@ -111,11 +97,7 @@ function TabsSkeleton() {
   return (
     <div className="flex gap-2 mb-10">
       {[80, 96, 112].map((w) => (
-        <div
-          key={w}
-          style={{ width: w }}
-          className="h-10 rounded bg-gray-100 animate-pulse"
-        />
+        <div key={w} style={{ width: w }} className="h-10 rounded bg-gray-100 animate-pulse" />
       ))}
     </div>
   );
@@ -143,10 +125,7 @@ function EmptyState({ type }: { type: EventType | null }) {
         Geen {label} gevonden
       </p>
       {type && (
-        <a
-          href="/evenementen"
-          className="mt-3 inline-block text-primary text-sm font-bold hover:underline"
-        >
+        <a href="/evenementen" className="mt-3 inline-block text-primary text-sm font-bold hover:underline">
           Toon alle evenementen
         </a>
       )}

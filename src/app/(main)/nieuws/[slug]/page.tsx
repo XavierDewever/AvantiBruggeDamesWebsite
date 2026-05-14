@@ -11,22 +11,33 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+type PostSlugRow = { slug: { current: string | null } | null };
+
+type Post = {
+  _id: string | null;
+  title: string | null;
+  slug: { current: string | null } | null;
+  publishedAt?: string | null;
+  excerpt?: string | null;
+  mainImage?: { asset?: unknown; alt?: string } | null;
+  body?: Array<{ _type: string; [key: string]: unknown }> | null;
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await client.fetch(POST_BY_SLUG_QUERY, { slug }, { cache: "no-store" });
+  const post = await client.fetch<Post | null>(POST_BY_SLUG_QUERY, { slug }, { cache: "no-store" });
   if (!post) return {};
   return {
-    title: `${post.title} | Ford Unicars Avanti Brugge Dames`,
+    title: `${post.title ?? "Nieuws"} | Ford Unicars Avanti Brugge Dames`,
     description: post.excerpt ?? undefined,
   };
 }
 
 export async function generateStaticParams() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const posts: any[] = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
+  const posts = await client.fetch<PostSlugRow[]>(ALL_POSTS_QUERY, {}, { cache: "no-store" });
   return (posts ?? [])
-    .filter((p) => typeof p?.slug?.current === "string")
-    .map((p) => ({ slug: p.slug.current as string }));
+    .filter((p) => !!p.slug?.current)
+    .map((p) => ({ slug: p.slug!.current as string }));
 }
 
 function formatDate(iso: string) {
@@ -87,13 +98,15 @@ const ptComponents: PortableTextComponents = {
 
 export default async function NieuwsDetailPage({ params }: Props) {
   const { slug } = await params;
-  const post = await client.fetch(POST_BY_SLUG_QUERY, { slug }, { cache: "no-store" });
+  const post = await client.fetch<Post | null>(POST_BY_SLUG_QUERY, { slug }, { cache: "no-store" });
 
   if (!post) notFound();
 
   const imgSrc = post.mainImage?.asset
-    ? urlFor(post.mainImage).width(1200).height(600).fit("crop").url()
+    ? urlFor(post.mainImage as Parameters<typeof urlFor>[0]).width(1200).height(600).fit("crop").url()
     : null;
+
+  const displayTitle = post.title ?? "Nieuwsbericht";
 
   return (
     <>
@@ -103,7 +116,7 @@ export default async function NieuwsDetailPage({ params }: Props) {
           <div className="relative h-64 lg:h-96 w-full overflow-hidden">
             <Image
               src={imgSrc}
-              alt={post.mainImage?.alt ?? post.title ?? "Blog post afbeelding"}
+              alt={(post.mainImage as { alt?: string } | null)?.alt ?? displayTitle}
               fill
               priority
               className="object-cover opacity-40"
@@ -128,7 +141,7 @@ export default async function NieuwsDetailPage({ params }: Props) {
             </p>
           )}
           <h1 className="text-3xl lg:text-5xl font-black uppercase tracking-tight leading-tight text-white">
-            {post.title}
+            {displayTitle}
           </h1>
           {post.excerpt && (
             <p className="mt-4 text-gray-300 text-lg leading-relaxed max-w-2xl">

@@ -10,9 +10,9 @@ export type TeamForNav = {
 };
 
 export default async function Header() {
-  const teams: TeamForNav[] = await client
-    .fetch(TEAMS_FOR_NAV_QUERY, {}, { cache: "no-store" })
-    .catch(() => []);
+  const teams = await client
+    .fetch<TeamForNav[]>(TEAMS_FOR_NAV_QUERY, {}, { cache: "no-store" })
+    .catch(() => [] as TeamForNav[]);
 
   return <HeaderClient teams={teams} />;
 }

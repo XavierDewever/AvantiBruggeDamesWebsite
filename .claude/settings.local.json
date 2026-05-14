@@ -28,7 +28,12 @@
       "Bash(ls ~/.ssh/)",
       "Bash(ssh-add ~/.ssh/id_ed25519)",
       "Bash(ssh -T git@github.com)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/evenementen/page.tsx\")",
+      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/events/page.tsx\")",
+      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/sponsors/page.tsx\")",
+      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/ploegen/page.tsx\")",
+      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/nieuws/page.tsx\")"
     ]
   }
 }

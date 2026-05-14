@@ -11,36 +11,23 @@ export const metadata: Metadata = {
 };
 
 type Sponsor = {
-  _id: string;
-  name: string;
-  logo?: { asset: unknown };
+  _id: string | null;
+  name: string | null;
+  logo?: { asset: unknown } | null;
   websiteUrl?: string | null;
   type?: string | null;
   omschrijving?: string | null;
 };
 
 export default async function SponsorsPage() {
-  const raw = await client.fetch(
+  const sponsors = await client.fetch<Sponsor[]>(
     ALL_SPONSORS_QUERY,
     {},
     { cache: "no-store" },
-  ) as unknown[];
+  );
 
-  const sponsors: Sponsor[] = (raw ?? [])
-    .filter((s): s is Record<string, unknown> =>
-      !!s && typeof s === "object" &&
-      typeof (s as Record<string, unknown>)._id === "string"
-    )
-    .map((s) => ({
-      _id:         s._id as string,
-      name:        (s.name as string | null) ?? "Naamloze sponsor",
-      logo:        (s.logo as Sponsor["logo"]) ?? undefined,
-      websiteUrl:  (s.websiteUrl as string | null) ?? null,
-      type:        (s.type as string | null) ?? null,
-      omschrijving:(s.omschrijving as string | null) ?? null,
-    }));
-  const hoofdsponsors = sponsors.filter((s) => s.type === "hoofdsponsor");
-  const overige       = sponsors.filter((s) => s.type !== "hoofdsponsor");
+  const hoofdsponsors = (sponsors ?? []).filter((s) => s.type === "hoofdsponsor");
+  const overige       = (sponsors ?? []).filter((s) => s.type !== "hoofdsponsor");
 
   return (
     <>
@@ -75,23 +62,24 @@ export default async function SponsorsPage() {
                         .fit("max")
                         .url()
                     : null;
+                  const displayName = sponsor.name ?? "Sponsor";
 
                   return (
-                    <SponsorLink key={sponsor._id} href={sponsor.websiteUrl} label={sponsor.name}>
+                    <SponsorLink key={sponsor._id ?? displayName} href={sponsor.websiteUrl} label={displayName}>
                       <div className="flex flex-col h-full rounded-xl border-2 border-primary/20 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300 overflow-hidden group">
                         {/* Logo-zone */}
                         <div className="flex items-center justify-center bg-white px-10 py-10 min-h-[180px]">
                           {logoSrc ? (
                             <Image
                               src={logoSrc}
-                              alt={sponsor.name}
+                              alt={displayName}
                               width={300}
                               height={140}
                               className="object-contain max-h-32 w-auto"
                             />
                           ) : (
                             <span className="text-base font-black text-gray-700 uppercase tracking-wide text-center group-hover:text-primary transition-colors">
-                              {sponsor.name}
+                              {displayName}
                             </span>
                           )}
                         </div>
@@ -101,7 +89,7 @@ export default async function SponsorsPage() {
                           <p className="text-xs font-black text-primary uppercase tracking-widest">
                             Hoofdsponsor
                           </p>
-                          <p className="text-sm font-bold text-gray-900">{sponsor.name}</p>
+                          <p className="text-sm font-bold text-gray-900">{displayName}</p>
                           {sponsor.omschrijving && (
                             <p className="text-xs text-gray-500 leading-relaxed mt-0.5">
                               {sponsor.omschrijving}
@@ -129,21 +117,22 @@ export default async function SponsorsPage() {
                         .fit("max")
                         .url()
                     : null;
+                  const displayName = sponsor.name ?? "Sponsor";
 
                   return (
-                    <SponsorLink key={sponsor._id} href={sponsor.websiteUrl} label={sponsor.name}>
+                    <SponsorLink key={sponsor._id ?? displayName} href={sponsor.websiteUrl} label={displayName}>
                       <div className="flex items-center justify-center bg-white border border-gray-100 rounded-lg p-6 min-h-[100px] hover:border-primary/40 hover:shadow-md transition-all duration-200 group">
                         {logoSrc ? (
                           <Image
                             src={logoSrc}
-                            alt={sponsor.name}
+                            alt={displayName}
                             width={160}
                             height={80}
                             className="object-contain max-h-14 w-auto grayscale group-hover:grayscale-0 transition-all duration-300"
                           />
                         ) : (
                           <span className="text-xs font-black text-gray-600 uppercase tracking-wide text-center group-hover:text-primary transition-colors">
-                            {sponsor.name}
+                            {displayName}
                           </span>
                         )}
                       </div>
@@ -155,7 +144,7 @@ export default async function SponsorsPage() {
           )}
 
           {/* Leeg staat ─────────────────────────────────────────────────── */}
-          {sponsors.length === 0 && (
+          {(sponsors ?? []).length === 0 && (
             <div className="py-24 text-center border-2 border-dashed border-gray-200 rounded-lg">
               <p className="text-gray-400 font-semibold uppercase tracking-wide text-sm">
                 Nog geen sponsors toegevoegd

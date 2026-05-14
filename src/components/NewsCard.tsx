@@ -3,12 +3,12 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
 export type NewsCardProps = {
-  _id: string;
-  title: string;
-  slug: { current: string };
+  _id: string | null;
+  title: string | null;
+  slug: { current: string | null } | null;
   publishedAt?: string | null;
   excerpt?: string | null;
-  mainImage?: { asset?: { _ref: string }; alt?: string } | null;
+  mainImage?: { asset?: unknown; alt?: string } | null;
 };
 
 function formatDate(iso: string) {
@@ -26,10 +26,13 @@ export default function NewsCard({
   excerpt,
   mainImage,
 }: NewsCardProps) {
-  const imgSrc =
-    mainImage?.asset
-      ? urlFor(mainImage).width(600).height(340).fit("crop").url()
-      : null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const imgSrc = mainImage?.asset
+    ? urlFor(mainImage as Parameters<typeof urlFor>[0]).width(600).height(340).fit("crop").url()
+    : null;
+
+  const displayTitle = title ?? "Nieuwsbericht";
+  const slugCurrent = slug?.current ?? "";
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-card hover:shadow-md transition-shadow duration-200">
@@ -38,7 +41,7 @@ export default function NewsCard({
         {imgSrc ? (
           <Image
             src={imgSrc}
-            alt={mainImage?.alt ?? title}
+            alt={(mainImage as { alt?: string } | null)?.alt ?? displayTitle}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -60,7 +63,7 @@ export default function NewsCard({
           </p>
         )}
         <h3 className="font-black text-gray-900 text-base uppercase leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-          {title}
+          {displayTitle}
         </h3>
         {excerpt && (
           <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mt-1">
@@ -68,7 +71,7 @@ export default function NewsCard({
           </p>
         )}
         <Link
-          href={`/nieuws/${slug.current}`}
+          href={`/nieuws/${slugCurrent}`}
           className="mt-auto pt-3 inline-flex items-center gap-1 text-primary text-xs font-bold uppercase tracking-wider hover:gap-2 transition-all"
         >
           Lees meer
