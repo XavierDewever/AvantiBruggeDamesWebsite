@@ -7,6 +7,7 @@ import { TEAM_BY_SLUG_QUERY, ALL_TEAM_SLUGS_QUERY } from "@/sanity/lib/queries";
 import { fetchVBLData } from "@/lib/vbl";
 import VBLCalendar from "@/components/VBLCalendar";
 import VBLStandings from "@/components/VBLStandings";
+import VBLUpcoming from "@/components/VBLUpcoming";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -174,6 +175,13 @@ export default async function PloegPage({ params }: Props) {
             <div>
               <SectionLabel accent>Wedstrijdkalender</SectionLabel>
               <VBLCalendar calendar={calendar} highlightTeam={team.name ?? ""} />
+            </div>
+            <div>
+              <SectionLabel accent>Volgende wedstrijden</SectionLabel>
+              <VBLUpcoming
+                matches={calendar.upcoming.slice(0, 5)}
+                highlightTeam={team.name ?? ""}
+              />
             </div>
             <div>
               <SectionLabel accent>Klassement</SectionLabel>
