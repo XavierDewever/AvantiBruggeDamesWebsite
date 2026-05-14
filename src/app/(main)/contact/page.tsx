@@ -110,7 +110,7 @@ export default async function ContactPage() {
                 <div>
                   <SectionLabel>Sporthallen</SectionLabel>
                   <ul className="mt-3 flex flex-col gap-4">
-                    {d.sporthallen.map((hal, i) => (
+                    {d.sporthallen.map((hal: { naam: string; adres?: string; extra?: string }, i: number) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="mt-0.5 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                           <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
