@@ -140,7 +140,7 @@ export default function EventCard({
           {/* Twizzit-knop — prominent, volledig breed */}
           {twizzitUrl ? (
             <a
-              href={isVolzet ? undefined : twizzitUrl}
+              href={isVolzet ? "#" : (twizzitUrl ?? "#")}
               target={isVolzet ? undefined : "_blank"}
               rel="noopener noreferrer"
               aria-disabled={isVolzet}

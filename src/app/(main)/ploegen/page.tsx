@@ -97,7 +97,7 @@ function TeamSection({ label, teams }: { label: string; teams: Team[] }) {
                 {photoSrc ? (
                   <Image
                     src={photoSrc}
-                    alt={team.teamPhoto?.alt ?? team.name}
+                    alt={team.teamPhoto?.alt ?? team.name ?? ""}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

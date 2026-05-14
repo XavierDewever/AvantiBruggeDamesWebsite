@@ -62,7 +62,7 @@ export default async function PloegPage({ params }: Props) {
         {photoSrc && (
           <Image
             src={photoSrc}
-            alt={team.teamPhoto?.alt ?? team.name}
+            alt={team.teamPhoto?.alt ?? team.name ?? ""}
             fill
             priority
             className="object-cover opacity-25"
@@ -102,7 +102,7 @@ export default async function PloegPage({ params }: Props) {
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <Image
                   src={photoSrc}
-                  alt={team.teamPhoto?.alt ?? team.name}
+                  alt={team.teamPhoto?.alt ?? team.name ?? ""}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 33vw"
