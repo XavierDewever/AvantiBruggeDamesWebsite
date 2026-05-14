@@ -116,7 +116,7 @@ export default async function PloegPage({ params }: Props) {
               {team.assistantCoach && <InfoRow label="Assistent" value={team.assistantCoach} />}
             </div>
 
-            {team.trainingHours?.length > 0 && (
+            {(team.trainingHours?.length ?? 0) > 0 && (
               <div>
                 <SectionLabel>Trainingsuren</SectionLabel>
                 <ul className="rounded-lg border border-gray-100 divide-y divide-gray-100">
