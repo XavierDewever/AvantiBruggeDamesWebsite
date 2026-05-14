@@ -63,8 +63,11 @@ export default async function PloegPage({ params }: Props) {
 
   if (!team) notFound();
 
-  const { calendar, standings } = team.basketVlaanderenId
-    ? await fetchVBLData(team.basketVlaanderenId)
+  // Alleen seniorploegen (DSE-prefix) krijgen volledige VBL-data
+  const isSeniorTeam = team.basketVlaanderenId?.startsWith("DSE") ?? false;
+
+  const { calendar, standings } = isSeniorTeam
+    ? await fetchVBLData(team.basketVlaanderenId!)
     : { calendar: { upcoming: [], past: [], reeksGuid: null }, standings: [] };
 
   const photoSrc = team.teamPhoto?.asset
@@ -114,10 +117,10 @@ export default async function PloegPage({ params }: Props) {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className={`grid grid-cols-1 gap-10 ${isSeniorTeam ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
 
           {/* ── Linker kolom: teaminfo ────────────────────────────────────── */}
-          <aside className="lg:col-span-1 space-y-6">
+          <aside className="space-y-6">
 
             {photoSrc && (
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
@@ -163,31 +166,28 @@ export default async function PloegPage({ params }: Props) {
               </div>
             )}
 
-            {!team.basketVlaanderenId && (
-              <div className="rounded-lg bg-yellow-50 border border-yellow-200 px-4 py-3 text-sm text-yellow-800">
-                Geen VBL-ID ingesteld — live kalender en stand niet beschikbaar.
-              </div>
-            )}
           </aside>
 
-          {/* ── Rechter kolom: live VBL data ──────────────────────────────── */}
-          <div className="lg:col-span-2 space-y-10">
-            <div>
-              <SectionLabel accent>Wedstrijdkalender</SectionLabel>
-              <VBLCalendar calendar={calendar} highlightTeam={team.name ?? ""} />
+          {/* ── Rechter kolom: live VBL data (enkel seniorploegen) ────────── */}
+          {isSeniorTeam && (
+            <div className="lg:col-span-2 space-y-10">
+              <div>
+                <SectionLabel accent>Wedstrijdkalender</SectionLabel>
+                <VBLCalendar calendar={calendar} highlightTeam={team.name ?? ""} />
+              </div>
+              <div>
+                <SectionLabel accent>Volgende wedstrijden</SectionLabel>
+                <VBLUpcoming
+                  matches={calendar.upcoming.slice(0, 5)}
+                  highlightTeam={team.name ?? ""}
+                />
+              </div>
+              <div>
+                <SectionLabel accent>Klassement</SectionLabel>
+                <VBLStandings standings={standings} highlightTeam={team.name ?? ""} />
+              </div>
             </div>
-            <div>
-              <SectionLabel accent>Volgende wedstrijden</SectionLabel>
-              <VBLUpcoming
-                matches={calendar.upcoming.slice(0, 5)}
-                highlightTeam={team.name ?? ""}
-              />
-            </div>
-            <div>
-              <SectionLabel accent>Klassement</SectionLabel>
-              <VBLStandings standings={standings} highlightTeam={team.name ?? ""} />
-            </div>
-          </div>
+          )}
 
         </div>
       </div>
