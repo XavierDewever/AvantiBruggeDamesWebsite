@@ -49,9 +49,9 @@ export default async function HomePage() {
             </p>
 
             <div className="flex flex-wrap gap-3 mt-2">
-              {nextEvent ? (
+              {nextEvent?.slug?.current ? (
                 <Link
-                  href={`/events/${nextEvent.slug.current}`}
+                  href={`/evenementen/${nextEvent.slug.current}`}
                   className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary hover:bg-primary-dark text-white font-black uppercase tracking-wider text-sm rounded transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
