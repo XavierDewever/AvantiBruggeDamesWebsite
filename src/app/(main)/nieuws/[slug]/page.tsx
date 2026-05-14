@@ -104,7 +104,7 @@ export default async function NieuwsDetailPage({ params }: Props) {
           <div className="relative h-64 lg:h-96 w-full overflow-hidden">
             <Image
               src={imgSrc}
-              alt={post.mainImage?.alt ?? post.title}
+              alt={post.mainImage?.alt ?? post.title ?? "Blog post afbeelding"}
               fill
               priority
               className="object-cover opacity-40"
