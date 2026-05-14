@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { CONTACT_PAGINA_QUERY } from "@/sanity/lib/queries";
 
+type Sporthal = { naam?: string; adres?: string; extra?: string };
+
 export const metadata: Metadata = {
   title: "Contact | Ford Unicars Avanti Brugge Dames",
   description:
@@ -15,7 +17,7 @@ const DEFAULTS = {
   email:                "avantibruggedames@gmail.com",
   facebookUrl:          null as string | null,
   instagramUrl:         null as string | null,
-  sporthallen:          [] as { naam: string; adres?: string; extra?: string }[],
+  sporthallen:          [] as Sporthal[],
   formulierTitel:       "Stuur ons een bericht",
   formulierOmschrijving:"Klik op de knop hieronder om ons contactformulier in Twizzit te openen. We proberen binnen de 48 uur te antwoorden.",
   formulierUrl:         "#",
@@ -110,7 +112,7 @@ export default async function ContactPage() {
                 <div>
                   <SectionLabel>Sporthallen</SectionLabel>
                   <ul className="mt-3 flex flex-col gap-4">
-                    {d.sporthallen.map((hal: { naam: string; adres?: string; extra?: string }, i: number) => (
+                    {d.sporthallen.filter((hal: Sporthal) => !!hal.naam).map((hal: Sporthal, i: number) => (
                       <li key={i} className="flex items-start gap-3">
                         <span className="mt-0.5 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                           <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
