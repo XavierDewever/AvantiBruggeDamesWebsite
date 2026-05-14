@@ -165,13 +165,6 @@ export default function EventCard({
             </span>
           )}
 
-          {/* Meer info link */}
-          <Link
-            href={`/evenementen/${slugCurrent}`}
-            className="text-center w-full px-4 py-2 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white text-xs font-semibold uppercase tracking-wider rounded transition-colors"
-          >
-            Meer info
-          </Link>
         </div>
       </div>
     </article>
