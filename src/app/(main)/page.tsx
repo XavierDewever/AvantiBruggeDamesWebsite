@@ -3,15 +3,18 @@ import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_EVENTS_QUERY, HOMEPAGE_POSTS_QUERY } from "@/sanity/lib/queries";
 import EventCard from "@/components/EventCard";
 import NewsCard from "@/components/NewsCard";
+import { toEventCards } from "@/lib/toEventCards";
 
 export default async function HomePage() {
   const now = new Date().toISOString();
 
   // Parallelle fetches met per-query revalidatie — geen waterval
-  const [events, posts] = await Promise.all([
+  const [rawEvents, posts] = await Promise.all([
     client.fetch(HOMEPAGE_EVENTS_QUERY, { now }, { next: { revalidate: 60 } }),
     client.fetch(HOMEPAGE_POSTS_QUERY,   {},     { next: { revalidate: 300 } }),
   ]);
+
+  const events = toEventCards(rawEvents ?? []);
 
   const nextEvent = events?.[0] ?? null;
 
@@ -142,7 +145,7 @@ export default async function HomePage() {
 
           {events && events.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {events.map((event: NonNullable<typeof events>[number]) => (
+              {events.map((event) => (
                 <EventCard key={event._id} {...event} />
               ))}
             </div>
