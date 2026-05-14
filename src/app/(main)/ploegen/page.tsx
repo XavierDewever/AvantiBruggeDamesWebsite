@@ -22,11 +22,27 @@ type Team = {
 };
 
 export default async function PloegenPage() {
-  const teams: Team[] = await client.fetch(
+  const raw: unknown[] = await client.fetch(
     ALL_TEAMS_QUERY,
     {},
     { cache: "no-store" },
   );
+
+  const teams: Team[] = (raw ?? [])
+    .filter((t): t is Record<string, unknown> =>
+      !!t && typeof t === "object" &&
+      typeof (t as Record<string, unknown>)._id === "string"
+    )
+    .map((t) => ({
+      _id:              t._id as string,
+      name:             (t.name as string | null) ?? "Naamloos team",
+      slug:             { current: ((t.slug as { current?: string | null } | null)?.current) ?? "" },
+      categorie:        (t.categorie as "bovenbouw" | "onderbouw" | null) ?? null,
+      teamPhoto:        (t.teamPhoto as Team["teamPhoto"]) ?? undefined,
+      coachName:        (t.coachName as string | null) ?? undefined,
+      assistantCoach:   (t.assistantCoach as string | null) ?? undefined,
+      basketVlaanderenId: (t.basketVlaanderenId as string | null) ?? undefined,
+    }));
 
   const bovenbouw = (teams ?? []).filter((t) => t.categorie === "bovenbouw");
   const onderbouw = (teams ?? []).filter((t) => t.categorie === "onderbouw");
