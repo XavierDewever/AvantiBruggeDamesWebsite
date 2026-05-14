@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   );
   if (!team) return { title: "Ploeg niet gevonden" };
   return {
-    title: `${team.name} | Ford Unicars Avanti Brugge Dames`,
+    title: `${team.name ?? "Ploeg"} | Ford Unicars Avanti Brugge Dames`,
     description: team.description ?? undefined,
   };
 }
@@ -111,7 +111,7 @@ export default async function PloegPage({ params }: Props) {
             )}
 
             <div className="rounded-lg border border-gray-100 divide-y divide-gray-100">
-              <InfoRow label="Team" value={team.name} />
+              <InfoRow label="Team" value={team.name ?? "Naamloos team"} />
               {team.coachName && <InfoRow label="Hoofdcoach" value={team.coachName} />}
               {team.assistantCoach && <InfoRow label="Assistent" value={team.assistantCoach} />}
             </div>
@@ -123,17 +123,17 @@ export default async function PloegPage({ params }: Props) {
                   {team.trainingHours.map(
                     (
                       slot: {
-                        day: string;
-                        startTime: string;
-                        endTime: string;
-                        location?: string;
+                        day?: string | null;
+                        startTime?: string | null;
+                        endTime?: string | null;
+                        location?: string | null;
                       },
                       i: number,
                     ) => (
                       <li key={i} className="flex items-center justify-between px-4 py-3 text-sm">
-                        <span className="font-bold text-gray-900 capitalize">{slot.day}</span>
+                        <span className="font-bold text-gray-900 capitalize">{slot.day ?? ""}</span>
                         <span className="text-gray-500">
-                          {slot.startTime}–{slot.endTime}
+                          {slot.startTime ?? ""}–{slot.endTime ?? ""}
                           {slot.location && (
                             <span className="ml-2 text-xs text-gray-400">{slot.location}</span>
                           )}
@@ -163,11 +163,11 @@ export default async function PloegPage({ params }: Props) {
           <div className="lg:col-span-2 space-y-10">
             <div>
               <SectionLabel accent>Wedstrijdkalender</SectionLabel>
-              <VBLCalendar calendar={calendar} highlightTeam={team.name} />
+              <VBLCalendar calendar={calendar} highlightTeam={team.name ?? ""} />
             </div>
             <div>
               <SectionLabel accent>Klassement</SectionLabel>
-              <VBLStandings standings={standings} highlightTeam={team.name} />
+              <VBLStandings standings={standings} highlightTeam={team.name ?? ""} />
             </div>
           </div>
 
