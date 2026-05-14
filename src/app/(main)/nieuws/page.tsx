@@ -29,7 +29,22 @@ function formatDate(iso: string) {
 }
 
 export default async function NieuwsPage() {
-  const posts: Post[] = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
+  const raw: unknown[] = await client.fetch(ALL_POSTS_QUERY, {}, { cache: "no-store" });
+
+  const posts: Post[] = (raw ?? [])
+    .filter((p): p is { _id: string; title: string; slug: { current: string } } =>
+      typeof (p as Record<string, unknown>)?._id === "string" &&
+      typeof (p as Record<string, unknown>)?.title === "string" &&
+      typeof ((p as Record<string, unknown>)?.slug as { current?: unknown })?.current === "string"
+    )
+    .map((p) => ({
+      _id: p._id,
+      title: p.title,
+      slug: { current: p.slug.current },
+      publishedAt: ((p as Record<string, unknown>).publishedAt as string | null) ?? null,
+      excerpt:     ((p as Record<string, unknown>).excerpt     as string | null) ?? null,
+      mainImage:   ((p as Record<string, unknown>).mainImage   as Post["mainImage"])  ?? null,
+    }));
 
   return (
     <>
