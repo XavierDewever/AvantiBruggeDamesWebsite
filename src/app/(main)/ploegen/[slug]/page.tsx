@@ -11,20 +11,19 @@ import VBLStandings from "@/components/VBLStandings";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
+  const teams = await client.fetch(ALL_TEAM_SLUGS_QUERY, {});
+
+  if (!teams) return [];
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const teams: any[] = await client.fetch(ALL_TEAM_SLUGS_QUERY, {});
-
-  if (!teams || !Array.isArray(teams)) return [];
-
-  return teams
+  return (teams as any[])
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .filter((t: any) => t?.slug)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((t: any) => ({
-      slug: typeof t.slug === "string" ? t.slug : (t.slug?.current ?? ""),
-    }))
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .filter((t: any) => t.slug !== "");
+    .map((t: any) => {
+      const s = t?.slug?.current || t?.slug;
+      if (typeof s === "string") return { slug: s };
+      return null;
+    })
+    .filter((item): item is { slug: string } => item !== null);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
