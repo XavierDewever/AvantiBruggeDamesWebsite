@@ -11,8 +11,10 @@ import VBLStandings from "@/components/VBLStandings";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  const teams = await client.fetch(ALL_TEAM_SLUGS_QUERY, {});
-  return (teams ?? []).map((t: { slug: string }) => ({ slug: t.slug }));
+  const teams: unknown[] = await client.fetch(ALL_TEAM_SLUGS_QUERY, {});
+  return (teams ?? [])
+    .filter((t): t is { slug: string } => typeof (t as Record<string, unknown>)?.slug === "string")
+    .map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
