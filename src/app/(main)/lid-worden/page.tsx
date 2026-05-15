@@ -69,21 +69,12 @@ export default async function LidWordenPage() {
                   {c.lidOmschrijving}
                 </p>
 
-                <ul className="space-y-2">
-                  {["Wekelijkse trainingen", "Officiële wedstrijden", "Alle leeftijden"].map((item) => (
-                    <li key={item} className="flex items-center gap-2.5 text-sm text-white/90 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
                 {c.lidTwizzitUrl && (
                   <a
                     href={c.lidTwizzitUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-primary font-black uppercase tracking-wider text-sm rounded-xl hover:bg-gray-100 transition-colors"
+                    className="mt-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-primary font-black uppercase tracking-wider text-sm rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     Start aanvraag via Twizzit
                     <ArrowIcon className="w-4 h-4" />
@@ -114,21 +105,12 @@ export default async function LidWordenPage() {
                   {c.schoolOmschrijving}
                 </p>
 
-                <ul className="space-y-2">
-                  {["Spelenderwijs leren", "Veilige omgeving", "Vriendschappen opbouwen"].map((item) => (
-                    <li key={item} className="flex items-center gap-2.5 text-sm text-gray-700 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
                 {c.schoolTwizzitUrl && (
                   <a
                     href={c.schoolTwizzitUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
+                    className="mt-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
                   >
                     Start aanvraag via Twizzit
                     <ArrowIcon className="w-4 h-4" />
