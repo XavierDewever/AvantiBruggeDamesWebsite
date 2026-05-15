@@ -17,7 +17,7 @@ const DEFAULTS = {
   schoolTitel: "Basketbalschool",
   schoolOmschrijving:
     "Voor de allerkleinsten (U6–U8) die spelenderwijs willen leren basketballen. In een veilige en speelse omgeving maken ze kennis met de sport en bouwen ze meteen vriendschappen op.",
-  schoolTwizzitUrl: "#",
+  schoolTwizzitUrl: "https://app.twizzit.com/v2/public/form/b2ca5a35126f5e54b159e10ef597582e",
 };
 
 export default async function LidWordenPage() {
@@ -130,7 +130,7 @@ export default async function LidWordenPage() {
                     rel="noopener noreferrer"
                     className="mt-2 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
                   >
-                    Inschrijven voor Basketbalschool
+                    Start aanvraag via Twizzit
                     <ArrowIcon className="w-4 h-4" />
                   </a>
                 )}
