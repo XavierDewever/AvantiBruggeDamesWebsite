@@ -123,8 +123,8 @@ export default async function PloegPage({ params }: Props) {
           {/* ── Linker kolom: teaminfo ────────────────────────────────────── */}
           <aside className="space-y-6">
 
-            {photoSrc && (
-              <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-900">
+              {photoSrc ? (
                 <Image
                   src={photoSrc}
                   alt={team.teamPhoto?.alt ?? team.name ?? ""}
@@ -132,8 +132,29 @@ export default async function PloegPage({ params }: Props) {
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 33vw"
                 />
-              </div>
-            )}
+              ) : (
+                /* Placeholder */
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                  <svg
+                    className="w-16 h-16 text-white/10"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path
+                      fill="none"
+                      stroke="rgba(255,255,255,.12)"
+                      strokeWidth="1"
+                      d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07"
+                    />
+                  </svg>
+                  <span className="text-white/20 text-xs font-black uppercase tracking-widest">
+                    {team.name ?? "Ploeg"}
+                  </span>
+                </div>
+              )}
+            </div>
 
             <div className="rounded-lg border border-gray-100 divide-y divide-gray-100">
               <InfoRow label="Team" value={team.name ?? "Naamloos team"} />
