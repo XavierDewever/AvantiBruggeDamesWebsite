@@ -37,7 +37,7 @@ export default function NewsCard({
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-card hover:shadow-md transition-shadow duration-200">
       {/* Afbeelding */}
-      <div className="relative h-44 w-full overflow-hidden bg-gray-900">
+      <div className="relative h-44 w-full overflow-hidden bg-primary">
         {imgSrc ? (
           <Image
             src={imgSrc}
@@ -47,9 +47,9 @@ export default function NewsCard({
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full bg-gray-900 flex flex-col items-center justify-center gap-2">
+          <div className="w-full h-full bg-primary flex flex-col items-center justify-center gap-2">
             <svg
-              className="w-12 h-12 text-white/10"
+              className="w-12 h-12 text-white/30"
               viewBox="0 0 24 24"
               fill="currentColor"
               aria-hidden="true"
@@ -57,12 +57,12 @@ export default function NewsCard({
               <circle cx="12" cy="12" r="10" />
               <path
                 fill="none"
-                stroke="rgba(255,255,255,.12)"
+                stroke="rgba(255,255,255,.35)"
                 strokeWidth="1"
                 d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07"
               />
             </svg>
-            <span className="text-white/20 text-[10px] font-black uppercase tracking-widest">
+            <span className="text-white/50 text-[10px] font-black uppercase tracking-widest">
               Avanti Brugge
             </span>
           </div>
