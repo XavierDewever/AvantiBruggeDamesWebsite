@@ -58,7 +58,7 @@ export const EVENTS_BY_TYPE_QUERY =
 // ── Homepage ──────────────────────────────────────────────────────────────────
 
 export const HOMEPAGE_EVENTS_QUERY =
-  `*[_type == "event" && status == "open" && startDate >= $now] | order(startDate asc) [0..1] {
+  `*[_type == "event" && status == "open" && startDate >= $now] | order(startDate asc) [0..2] {
     _id, title, slug, eventType, startDate, endDate, twizzitUrl, image
   }`;
 
