@@ -56,25 +56,26 @@ export default async function LidWordenPage() {
 
               {/* Inhoud */}
               <div className="flex flex-col flex-1 p-8 gap-6">
-                <div>
-                  <span className="inline-block text-[10px] font-black text-white/60 uppercase tracking-widest mb-3">
-                    Competitie
-                  </span>
-                  <h2 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight leading-tight">
-                    {c.lidTitel}
-                  </h2>
+                <div className="flex flex-col gap-4 flex-1">
+                  <div>
+                    <span className="inline-block text-[10px] font-black text-white/60 uppercase tracking-widest mb-3">
+                      Competitie
+                    </span>
+                    <h2 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight leading-tight">
+                      {c.lidTitel}
+                    </h2>
+                  </div>
+                  <p className="text-white/80 leading-relaxed">
+                    {c.lidOmschrijving}
+                  </p>
                 </div>
-
-                <p className="text-white/80 leading-relaxed flex-1">
-                  {c.lidOmschrijving}
-                </p>
 
                 {c.lidTwizzitUrl && (
                   <a
                     href={c.lidTwizzitUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-primary font-black uppercase tracking-wider text-sm rounded-xl hover:bg-gray-100 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white text-primary font-black uppercase tracking-wider text-sm rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     Start aanvraag via Twizzit
                     <ArrowIcon className="w-4 h-4" />
@@ -92,25 +93,26 @@ export default async function LidWordenPage() {
 
               {/* Inhoud */}
               <div className="flex flex-col flex-1 p-8 gap-6">
-                <div>
-                  <span className="inline-block text-[10px] font-black text-primary/60 uppercase tracking-widest mb-3">
-                    U6 – U8
-                  </span>
-                  <h2 className="text-2xl lg:text-3xl font-black text-gray-900 uppercase tracking-tight leading-tight">
-                    {c.schoolTitel}
-                  </h2>
+                <div className="flex flex-col gap-4 flex-1">
+                  <div>
+                    <span className="inline-block text-[10px] font-black text-primary/60 uppercase tracking-widest mb-3">
+                      U6 – U8
+                    </span>
+                    <h2 className="text-2xl lg:text-3xl font-black text-gray-900 uppercase tracking-tight leading-tight">
+                      {c.schoolTitel}
+                    </h2>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed">
+                    {c.schoolOmschrijving}
+                  </p>
                 </div>
-
-                <p className="text-gray-600 leading-relaxed flex-1">
-                  {c.schoolOmschrijving}
-                </p>
 
                 {c.schoolTwizzitUrl && (
                   <a
                     href={c.schoolTwizzitUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-black uppercase tracking-wider text-sm rounded-xl hover:bg-primary-dark transition-colors border-2 border-primary"
                   >
                     Start aanvraag via Twizzit
                     <ArrowIcon className="w-4 h-4" />
