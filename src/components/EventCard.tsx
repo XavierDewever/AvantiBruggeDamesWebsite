@@ -10,6 +10,7 @@ export type EventCardProps = {
   startDate: string | null;
   endDate?: string | null;
   status?: string | null;
+  inschrijving?: string | null;
   twizzitUrl?: string | null;
   image?: { asset?: unknown; alt?: string } | null;
   /** Volledige kaartvariant voor de events-pagina (grotere afbeelding, prominentere knop) */
@@ -69,6 +70,7 @@ export default function EventCard({
   startDate,
   endDate,
   status,
+  inschrijving,
   twizzitUrl,
   image,
   variant = "default",
@@ -143,32 +145,43 @@ export default function EventCard({
           </h3>
         </div>
 
-        {/* ── Knoppen ───────────────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-2 mt-auto pt-1">
-          {/* Twizzit-knop — prominent, volledig breed */}
-          {twizzitUrl ? (
+        {/* ── Knop ──────────────────────────────────────────────────────────── */}
+        <div className="mt-auto pt-1">
+          {isVolzet ? (
+            /* Volzet — overschrijft alle andere staten */
+            <span className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-white/10 text-white/40 text-xs font-black uppercase tracking-wider rounded cursor-not-allowed">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+              </svg>
+              Volzet
+            </span>
+          ) : inschrijving === "open" && twizzitUrl ? (
+            /* Inschrijvingen open + Twizzit link beschikbaar */
             <a
-              href={isVolzet ? "#" : twizzitUrl}
-              target={isVolzet ? undefined : "_blank"}
+              href={twizzitUrl}
+              target="_blank"
               rel="noopener noreferrer"
-              aria-disabled={isVolzet}
-              className={`flex items-center justify-center gap-2 w-full px-4 py-2.5 text-xs font-black uppercase tracking-wider rounded transition-colors
-                ${isVolzet
-                  ? "bg-white/10 text-white/40 cursor-not-allowed"
-                  : "bg-white text-primary hover:bg-gray-100"
-                }`}
+              className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-white text-primary hover:bg-gray-100 text-xs font-black uppercase tracking-wider rounded transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
               </svg>
-              {isVolzet ? "Volzet" : "Inschrijven via Twizzit"}
+              Inschrijven via Twizzit
             </a>
+          ) : inschrijving === "gesloten" ? (
+            /* Inschrijving vereist maar nog niet open */
+            <span className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-white/10 text-white/50 text-xs font-bold uppercase tracking-wider rounded">
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              Inschrijvingen nog gesloten
+            </span>
           ) : (
+            /* Geen inschrijving vereist (standaard) */
             <span className="flex items-center justify-center w-full px-4 py-2.5 bg-white/10 text-white/50 text-xs font-bold uppercase tracking-wider rounded">
               Geen inschrijving vereist
             </span>
           )}
-
         </div>
       </div>
     </article>

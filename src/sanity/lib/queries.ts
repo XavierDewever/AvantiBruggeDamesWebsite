@@ -37,17 +37,17 @@ export const ALL_TEAM_SLUGS_QUERY =
 
 export const ALL_EVENTS_QUERY =
   `*[_type == "event"] | order(startDate asc) {
-    _id, title, slug, eventType, startDate, endDate, status, twizzitUrl, image
+    _id, title, slug, eventType, startDate, endDate, status, inschrijving, twizzitUrl, image
   }`;
 
 export const UPCOMING_EVENTS_QUERY =
   `*[_type == "event" && startDate >= $now] | order(startDate asc) {
-    _id, title, slug, eventType, startDate, endDate, status, twizzitUrl, image
+    _id, title, slug, eventType, startDate, endDate, status, inschrijving, twizzitUrl, image
   }`;
 
 export const EVENT_BY_SLUG_QUERY =
   `*[_type == "event" && slug.current == $slug][0] {
-    _id, title, slug, eventType, startDate, endDate, description, twizzitUrl, status, image
+    _id, title, slug, eventType, startDate, endDate, description, inschrijving, twizzitUrl, status, image
   }`;
 
 export const EVENTS_BY_TYPE_QUERY =
@@ -59,7 +59,7 @@ export const EVENTS_BY_TYPE_QUERY =
 
 export const HOMEPAGE_EVENTS_QUERY =
   `*[_type == "event" && status == "open" && startDate >= $now] | order(startDate asc) [0..2] {
-    _id, title, slug, eventType, startDate, endDate, twizzitUrl, image
+    _id, title, slug, eventType, startDate, endDate, inschrijving, twizzitUrl, image
   }`;
 
 export const HOMEPAGE_POSTS_QUERY =

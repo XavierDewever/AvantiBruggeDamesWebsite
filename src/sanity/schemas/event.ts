@@ -100,10 +100,25 @@ export default defineType({
 
     // ── Inschrijving & status ────────────────────────────────
     defineField({
+      name: "inschrijving",
+      title: "Inschrijving",
+      type: "string",
+      options: {
+        list: [
+          { title: "Niet vereist", value: "niet_vereist" },
+          { title: "Gesloten (nog niet beschikbaar)", value: "gesloten" },
+          { title: "Open (Twizzit link invullen hieronder)", value: "open" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "niet_vereist",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "twizzitUrl",
       title: "Twizzit-URL (inschrijven)",
       type: "url",
-      description: "Link naar de Twizzit-inschrijvingspagina voor dit evenement.",
+      description: "Enkel invullen als inschrijving op 'Open' staat.",
     }),
     defineField({
       name: "status",
