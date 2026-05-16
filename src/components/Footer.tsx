@@ -116,17 +116,26 @@ export default function Footer() {
       <div className="bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/80 text-xs">
           <p>© {new Date().getFullYear()} Ford Unicars Avanti Brugge Dames. Alle rechten voorbehouden.</p>
-          <p>
-            Lid van{" "}
-            <a
-              href="https://basketvlaanderen.be"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors font-semibold"
+          <div className="flex items-center gap-4">
+            <Link
+              href="/cookie-policy"
+              className="hover:text-white transition-colors"
             >
-              Basket Vlaanderen
-            </a>
-          </p>
+              Cookiebeleid
+            </Link>
+            <span className="text-white/40">·</span>
+            <p>
+              Lid van{" "}
+              <a
+                href="https://basketvlaanderen.be"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors font-semibold"
+              >
+                Basket Vlaanderen
+              </a>
+            </p>
+          </div>
         </div>
       </div>
 
