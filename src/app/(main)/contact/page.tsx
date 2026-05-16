@@ -128,6 +128,37 @@ export default async function ContactPage() {
               </div>
             )}
 
+            {/* Bedrijfsgegevens */}
+            <div>
+              <SectionLabel>Bedrijfsgegevens</SectionLabel>
+              <address className="not-italic mt-4 rounded-xl border border-gray-200 bg-white divide-y divide-gray-100 overflow-hidden">
+                {[
+                  { label: "Officiële naam",      value: "Avanti Brugge Dames" },
+                  { label: "Rechtsvorm",           value: "VZW" },
+                  { label: "Zetel",                value: "Spastraat 1, 8000 Brugge" },
+                  { label: "Ondernemingsnummer",   value: "0860.324.672" },
+                  { label: "RPR",                  value: "RPR Gent, afdeling Brugge" },
+                ].map(({ label, value }) => (
+                  <div key={label} className="grid grid-cols-[1fr_auto] sm:grid-cols-[180px_1fr] gap-2 px-4 py-3 text-sm">
+                    <span className="text-xs font-black uppercase tracking-wider text-gray-400 self-center">{label}</span>
+                    <span className="font-semibold text-gray-800 text-right sm:text-left">{value}</span>
+                  </div>
+                ))}
+                <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[180px_1fr] gap-2 px-4 py-3 text-sm">
+                  <span className="text-xs font-black uppercase tracking-wider text-gray-400 self-center">E-mail</span>
+                  <a href="mailto:avantibruggedames@gmail.com" className="font-semibold text-primary hover:underline text-right sm:text-left break-all">
+                    avantibruggedames@gmail.com
+                  </a>
+                </div>
+                <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[180px_1fr] gap-2 px-4 py-3 text-sm">
+                  <span className="text-xs font-black uppercase tracking-wider text-gray-400 self-center">Telefoon</span>
+                  <a href="tel:+32473300911" className="font-semibold text-primary hover:underline text-right sm:text-left">
+                    0473 300 911
+                  </a>
+                </div>
+              </address>
+            </div>
+
           </div>
         </div>
       </section>
