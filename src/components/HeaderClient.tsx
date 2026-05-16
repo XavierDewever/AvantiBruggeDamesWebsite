@@ -12,7 +12,7 @@ const clubItems = [
   { label: "Gedragscode",        href: "/gedragscode"        },
   { label: "Vertrouwenspersoon", href: "/vertrouwenspersoon" },
   { label: "GDPR",               href: "/gdpr"               },
-  { label: "Documenten",         href: "/documenten"         },
+  { label: "Documenten & handleidingen", href: "/documenten" },
 ];
 
 
