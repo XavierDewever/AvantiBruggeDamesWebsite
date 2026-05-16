@@ -164,18 +164,20 @@ export default async function NieuwsDetailPage({ params }: Props) {
 
           {/* ── Call to action ───────────────────────────────────── */}
           {post.ctaLabel && post.ctaUrl && (
-            <div className="mt-10 p-6 rounded-xl bg-gray-900 flex justify-center">
-              <a
-                href={post.ctaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-xs font-black uppercase tracking-wider rounded-lg hover:bg-primary-dark transition-colors"
-              >
-                {post.ctaLabel}
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
+            <div className="mt-10 flex justify-center">
+              <div className="bg-gray-900 rounded-xl p-3">
+                <a
+                  href={post.ctaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-xs font-black uppercase tracking-wider rounded-lg hover:bg-primary-dark transition-colors"
+                >
+                  {post.ctaLabel}
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </a>
+              </div>
             </div>
           )}
 
