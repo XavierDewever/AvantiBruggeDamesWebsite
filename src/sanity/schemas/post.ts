@@ -55,6 +55,28 @@ export default defineType({
       validation: (Rule) => Rule.max(200).warning("Houd de excerpt onder 200 tekens."),
     }),
 
+    // ── Call to action ───────────────────────────────────────
+    defineField({
+      name: "ctaLabel",
+      title: "CTA-knoptekst",
+      type: "string",
+      description: 'Tekst op de actieknop, bv. "Inschrijven" of "Meer info". Laat leeg als er geen knop nodig is.',
+      validation: (Rule) => Rule.max(60),
+    }),
+    defineField({
+      name: "ctaUrl",
+      title: "CTA-link (URL)",
+      type: "url",
+      description: "Link die de knop opent, bv. een Twizzit-formulier of externe pagina.",
+      validation: (Rule) =>
+        Rule.uri({ scheme: ["http", "https"] })
+          .custom((url, context) => {
+            const doc = context.document as { ctaLabel?: string };
+            if (doc?.ctaLabel && !url) return "Vul een URL in als je een knoptekst hebt opgegeven.";
+            return true;
+          }),
+    }),
+
     // ── Inhoud ───────────────────────────────────────────────
     defineField({
       name: "body",

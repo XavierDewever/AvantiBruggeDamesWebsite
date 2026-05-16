@@ -21,6 +21,8 @@ type Post = {
   excerpt?: string | null;
   mainImage?: { asset?: unknown; alt?: string } | null;
   body?: Array<{ _type: string; [key: string]: unknown }> | null;
+  ctaLabel?: string | null;
+  ctaUrl?: string | null;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -157,6 +159,29 @@ export default async function NieuwsDetailPage({ params }: Props) {
           {post.body && (
             <div className="prose-avanti">
               <PortableText value={post.body} components={ptComponents} />
+            </div>
+          )}
+
+          {/* ── Call to action ───────────────────────────────────── */}
+          {post.ctaLabel && post.ctaUrl && (
+            <div className="mt-10 p-6 rounded-xl bg-gray-900 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex-1">
+                <span className="inline-block w-6 h-0.5 bg-primary mb-2" />
+                <p className="text-white text-sm font-bold leading-snug">
+                  Wil je meer weten of meteen actie ondernemen?
+                </p>
+              </div>
+              <a
+                href={post.ctaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-xs font-black uppercase tracking-wider rounded-lg hover:bg-primary-dark transition-colors"
+              >
+                {post.ctaLabel}
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
             </div>
           )}
 
