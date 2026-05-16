@@ -118,6 +118,13 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Ford Unicars Avanti Brugge Dames. Alle rechten voorbehouden.</p>
           <div className="flex items-center gap-4">
             <Link
+              href="/privacy-verklaring"
+              className="hover:text-white transition-colors"
+            >
+              Privacyverklaring
+            </Link>
+            <span className="text-white/40">·</span>
+            <Link
               href="/cookie-policy"
               className="hover:text-white transition-colors"
             >
