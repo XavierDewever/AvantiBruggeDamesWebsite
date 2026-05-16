@@ -151,7 +151,7 @@ export default async function ContactPage() {
                   </a>
                 </div>
                 <div className="grid grid-cols-[1fr_auto] sm:grid-cols-[180px_1fr] gap-2 px-4 py-3 text-sm">
-                  <span className="text-xs font-black uppercase tracking-wider text-gray-400 self-center">Telefoon</span>
+                  <span className="text-xs font-black uppercase tracking-wider text-gray-400 self-center">Telefoon (voorzitter)</span>
                   <a href="tel:+32473300911" className="font-semibold text-primary hover:underline text-right sm:text-left">
                     0473 300 911
                   </a>
