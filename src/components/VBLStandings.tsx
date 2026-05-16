@@ -18,7 +18,7 @@ export default function VBLStandings({ standings, highlightTeam }: Props) {
 
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-100">
-      <table className="w-full text-sm border-collapse">
+      <table className="w-full min-w-[480px] text-sm border-collapse">
         <thead>
           <tr className="bg-primary text-white">
             <Th className="w-10 text-center">#</Th>

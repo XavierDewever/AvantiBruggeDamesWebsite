@@ -52,7 +52,8 @@ function MatchList({
   showScore?: boolean;
 }) {
   return (
-    <ul className="divide-y divide-gray-100 rounded-lg border border-gray-100 overflow-hidden">
+    <div className="overflow-x-auto rounded-lg border border-gray-100">
+    <ul className="divide-y divide-gray-100 min-w-[480px]">
       {matches.map((match, i) => {
         const teamLower = highlightTeam?.toLowerCase() ?? "";
         const isHome = teamLower
@@ -129,5 +130,6 @@ function MatchList({
         );
       })}
     </ul>
+    </div>
   );
 }
