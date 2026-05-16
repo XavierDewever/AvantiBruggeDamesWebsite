@@ -127,8 +127,8 @@ export default function CookiePolicyPage() {
           <Section title="Contact">
             <p>
               Heb je vragen over ons cookiebeleid? Neem dan contact op via{" "}
-              <a href="mailto:secretariaat@avantibruggedames.be" className="text-primary hover:underline">
-                secretariaat@avantibruggedames.be
+              <a href="mailto:info@avantibruggedames.be" className="text-primary hover:underline">
+                info@avantibruggedames.be
               </a>
               .
             </p>
