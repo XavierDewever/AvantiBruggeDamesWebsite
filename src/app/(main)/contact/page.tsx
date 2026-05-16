@@ -47,7 +47,7 @@ export default async function ContactPage() {
       {/* ── Inhoud ─────────────────────────────────────────────────────── */}
       <section className="bg-white py-14 lg:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-red-50 rounded-2xl px-8 py-10 flex flex-col gap-10">
+          <div className="bg-red-50 rounded-2xl px-4 sm:px-8 py-10 flex flex-col gap-10">
 
             {/* E-mailadressen */}
             <div>
@@ -71,7 +71,7 @@ export default async function ContactPage() {
                       </span>
                       <div className="min-w-0">
                         <p className="text-xs font-black uppercase tracking-wider text-gray-400">{label}</p>
-                        <p className="text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors truncate">{adres}</p>
+                        <p className="text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors break-all">{adres}</p>
                       </div>
                     </a>
                   </li>
@@ -163,7 +163,7 @@ function SocialButton({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white border border-gray-100 hover:border-primary/30 hover:bg-primary/5 text-gray-600 hover:text-primary transition-colors"
+      className="inline-flex items-center gap-2 px-3 py-2.5 sm:px-4 sm:gap-2.5 rounded-xl bg-white border border-gray-100 hover:border-primary/30 hover:bg-primary/5 text-gray-600 hover:text-primary transition-colors"
     >
       {children}
     </a>
