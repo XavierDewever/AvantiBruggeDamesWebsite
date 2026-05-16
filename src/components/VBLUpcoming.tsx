@@ -66,7 +66,7 @@ export default function VBLUpcoming({ matches, highlightTeam }: Props) {
             </div>
 
             {/* Thuisploeg */}
-            <p className={`text-right truncate ${isHome ? "font-black text-primary" : "text-gray-700 font-medium"}`}>
+            <p className={`text-right ${isHome ? "font-black text-primary" : "text-gray-700 font-medium"}`}>
               {match.tTNaam}
             </p>
 
@@ -76,7 +76,7 @@ export default function VBLUpcoming({ matches, highlightTeam }: Props) {
             </div>
 
             {/* Uitploeg */}
-            <p className={`truncate ${isAway ? "font-black text-primary" : "text-gray-700 font-medium"}`}>
+            <p className={`${isAway ? "font-black text-primary" : "text-gray-700 font-medium"}`}>
               {match.tUNaam}
             </p>
           </li>

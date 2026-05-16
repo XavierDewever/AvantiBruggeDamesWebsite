@@ -94,7 +94,7 @@ function MatchList({
 
             {/* Thuisploeg */}
             <p
-              className={`text-right truncate ${
+              className={`text-right ${
                 isHome
                   ? "font-black text-primary"
                   : "text-gray-700 font-medium"
@@ -118,7 +118,7 @@ function MatchList({
 
             {/* Uitploeg */}
             <p
-              className={`truncate ${
+              className={`${
                 isAway
                   ? "font-black text-primary"
                   : "text-gray-700 font-medium"
