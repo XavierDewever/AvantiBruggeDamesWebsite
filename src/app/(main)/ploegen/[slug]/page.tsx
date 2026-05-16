@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const team = await client.fetch<Team | null>(
     TEAM_BY_SLUG_QUERY,
     { slug },
-    { next: { revalidate: 3600 } },
+    { cache: "no-store" },
   );
   if (!team) return { title: "Ploeg niet gevonden" };
   return {
@@ -58,7 +58,7 @@ export default async function PloegPage({ params }: Props) {
   const team = await client.fetch<Team | null>(
     TEAM_BY_SLUG_QUERY,
     { slug },
-    { next: { revalidate: 3600 } },
+    { cache: "no-store" },
   );
 
   if (!team) notFound();
