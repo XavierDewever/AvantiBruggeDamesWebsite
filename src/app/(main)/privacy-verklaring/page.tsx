@@ -17,7 +17,7 @@ export default function PrivacyVerklaringPage() {
             Privacy<span className="text-primary">verklaring</span>
           </h1>
           <p className="mt-4 text-gray-400 text-lg max-w-xl leading-relaxed">
-            Laatste wijziging: 23 april 2021
+            Laatste wijziging: 16 mei 2026
           </p>
         </div>
       </section>
@@ -73,7 +73,7 @@ export default function PrivacyVerklaringPage() {
             <address className="not-italic rounded-xl border border-gray-200 bg-gray-50 divide-y divide-gray-100 overflow-hidden text-sm">
               {[
                 { label: "Organisatie", value: "Basketbalclub Avanti Brugge Dames" },
-                { label: "Adres",       value: "Frank Van Ackerpromenade 6/604, 8000 Brugge" },
+                { label: "Adres",       value: "Spastraat 1, 8000 Brugge" },
               ].map(({ label, value }) => (
                 <div key={label} className="grid grid-cols-[140px_1fr] gap-2 px-4 py-3">
                   <span className="text-xs font-black uppercase tracking-wider text-gray-400 self-center">{label}</span>
@@ -227,7 +227,7 @@ export default function PrivacyVerklaringPage() {
           <Section title="10. Wijziging privacy statement">
             <p>
               Basketbalclub Avanti Brugge Dames kan de privacyverklaring steeds wijzigen. De laatste wijziging
-              gebeurde op 23 april 2021.
+              gebeurde op 16 mei 2026.
             </p>
           </Section>
 
