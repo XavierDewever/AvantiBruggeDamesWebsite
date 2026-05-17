@@ -343,11 +343,11 @@ export default function HeaderClient({ teams }: { teams: TeamForNav[] }) {
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
               <Image
-                src="/logo-avanti.jpg"
+                src="/logo_avanti_transparent.svg"
                 alt="Ford Unicars Avanti Brugge Dames"
                 height={100}
                 width={400}
-                className="h-[100px] w-auto object-contain"
+                className="h-[100px] w-auto"
                 priority
               />
             </Link>
