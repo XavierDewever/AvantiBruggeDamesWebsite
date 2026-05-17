@@ -33,7 +33,14 @@
       "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/events/page.tsx\")",
       "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/sponsors/page.tsx\")",
       "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/ploegen/page.tsx\")",
-      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/nieuws/page.tsx\")"
+      "Bash(sed -i '' 's/const raw: unknown\\\\[\\\\] = await client\\\\.fetch\\(\\\\\\(.*\\\\\\)/const raw = await client.fetch\\(\\\\1/' \"/Users/xavierdewever/Documents/Claude/Projects/Website/src/app/\\(main\\)/nieuws/page.tsx\")",
+      "Bash(ssh-add --apple-use-keychain ~/.ssh/id_ed25519)",
+      "Bash(brew list *)",
+      "Bash(ls /opt/homebrew/bin/gh /usr/local/bin/gh 2>/dev/null)",
+      "Bash(curl -s \"https://8xyvn733.api.sanity.io/v2024-01-01/data/query/production?query=*%5B_type+%3D%3D+%22event%22%5D%7B_id%2C+title%2C+image%7D%5B0..1%5D\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s http://localhost:3000/evenementen)",
+      "Bash(npx tsc *)"
     ]
   }
 }

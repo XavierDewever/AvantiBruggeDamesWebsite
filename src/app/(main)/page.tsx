@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_EVENTS_QUERY, HOMEPAGE_POSTS_QUERY } from "@/sanity/lib/queries";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
@@ -33,7 +34,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(45deg,#fff_0px,#fff_1px,transparent_1px,transparent_60px)]" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-44 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-44 flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-20">
           {/* Linker kolom: tekst */}
           <div className="flex flex-col gap-6 max-w-2xl">
             <span className="inline-block w-14 h-1 bg-primary rounded-full" />
@@ -67,47 +68,58 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Rechter kolom: next-event preview (alleen als er een is) */}
-          {nextEvent && (
-            <div className="w-full lg:w-80 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-5 flex flex-col gap-3">
-              <p className="text-primary text-xs font-black uppercase tracking-widest">
-                Eerstvolgende evenement
-              </p>
-              <p className="text-white font-black text-base uppercase leading-tight">
-                {nextEvent.title}
-              </p>
-              <p className="text-gray-400 text-sm">
-                {nextEvent.startDate ? (
-                  <>
-                    {new Date(nextEvent.startDate).toLocaleDateString("nl-BE", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                      timeZone: "Europe/Brussels",
-                    })}
-                    {" · "}
-                    {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      timeZone: "Europe/Brussels",
-                    })}
-                  </>
-                ) : (
-                  "Datum nog niet bekend"
+          {/* Rechter kolom: logo + optioneel next-event preview */}
+          <div className="hidden lg:flex flex-col items-center gap-6 shrink-0">
+            <Image
+              src="/logo_avanti_transparent.svg"
+              alt="Ford Unicars Avanti Brugge Dames"
+              width={320}
+              height={320}
+              className="w-64 xl:w-80 h-auto drop-shadow-2xl"
+              priority
+            />
+
+            {nextEvent && (
+              <div className="w-full max-w-xs bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-5 flex flex-col gap-3">
+                <p className="text-primary text-xs font-black uppercase tracking-widest">
+                  Eerstvolgende evenement
+                </p>
+                <p className="text-white font-black text-base uppercase leading-tight">
+                  {nextEvent.title}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  {nextEvent.startDate ? (
+                    <>
+                      {new Date(nextEvent.startDate).toLocaleDateString("nl-BE", {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        timeZone: "Europe/Brussels",
+                      })}
+                      {" · "}
+                      {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        timeZone: "Europe/Brussels",
+                      })}
+                    </>
+                  ) : (
+                    "Datum nog niet bekend"
+                  )}
+                </p>
+                {nextEvent.twizzitUrl && (
+                  <a
+                    href={nextEvent.twizzitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 w-full text-center px-4 py-2.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold uppercase tracking-wider rounded transition-colors"
+                  >
+                    Inschrijven
+                  </a>
                 )}
-              </p>
-              {nextEvent.twizzitUrl && (
-                <a
-                  href={nextEvent.twizzitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 w-full text-center px-4 py-2.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold uppercase tracking-wider rounded transition-colors"
-                >
-                  Inschrijven
-                </a>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
