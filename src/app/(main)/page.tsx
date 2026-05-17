@@ -34,7 +34,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(45deg,#fff_0px,#fff_1px,transparent_1px,transparent_60px)]" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-44 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 lg:py-44 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
           {/* Linker kolom: tekst */}
           <div className="flex flex-col gap-6 max-w-2xl">
             <span className="inline-block w-14 h-1 bg-primary rounded-full" />
