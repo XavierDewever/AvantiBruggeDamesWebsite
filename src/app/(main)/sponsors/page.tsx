@@ -68,14 +68,14 @@ export default async function SponsorsPage() {
                     <SponsorLink key={sponsor._id ?? displayName} href={sponsor.websiteUrl} label={displayName}>
                       <div className="flex flex-col h-full rounded-xl border-2 border-primary/20 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300 overflow-hidden group">
                         {/* Logo-zone */}
-                        <div className="flex items-center justify-center bg-white px-10 py-10 min-h-[180px]">
+                        <div className="flex items-center justify-center bg-white px-8 py-8 min-h-[220px]">
                           {logoSrc ? (
                             <Image
                               src={logoSrc}
                               alt={displayName}
-                              width={300}
-                              height={140}
-                              className="object-contain max-h-32 w-auto"
+                              width={380}
+                              height={180}
+                              className="object-contain max-h-44 w-auto"
                             />
                           ) : (
                             <span className="text-base font-black text-gray-700 uppercase tracking-wide text-center group-hover:text-primary transition-colors">
@@ -121,14 +121,14 @@ export default async function SponsorsPage() {
 
                   return (
                     <SponsorLink key={sponsor._id ?? displayName} href={sponsor.websiteUrl} label={displayName}>
-                      <div className="flex items-center justify-center bg-white border border-gray-100 rounded-lg p-6 min-h-[100px] hover:border-primary/40 hover:shadow-md transition-all duration-200 group">
+                      <div className="flex items-center justify-center bg-white border border-gray-100 rounded-lg p-8 min-h-[140px] hover:border-primary/40 hover:shadow-md transition-all duration-200 group">
                         {logoSrc ? (
                           <Image
                             src={logoSrc}
                             alt={displayName}
-                            width={160}
-                            height={80}
-                            className="object-contain max-h-14 w-auto grayscale group-hover:grayscale-0 transition-all duration-300"
+                            width={220}
+                            height={110}
+                            className="object-contain max-h-20 w-auto grayscale group-hover:grayscale-0 transition-all duration-300"
                           />
                         ) : (
                           <span className="text-xs font-black text-gray-600 uppercase tracking-wide text-center group-hover:text-primary transition-colors">
