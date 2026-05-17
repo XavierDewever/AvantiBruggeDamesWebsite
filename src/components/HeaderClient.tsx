@@ -347,7 +347,7 @@ export default function HeaderClient({ teams }: { teams: TeamForNav[] }) {
                 alt="Ford Unicars Avanti Brugge Dames"
                 height={100}
                 width={400}
-                className="h-[100px] w-auto"
+                className="h-[120px] w-auto"
                 priority
               />
             </Link>

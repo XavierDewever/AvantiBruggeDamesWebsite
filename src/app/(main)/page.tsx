@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_EVENTS_QUERY, HOMEPAGE_POSTS_QUERY } from "@/sanity/lib/queries";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
@@ -67,47 +68,58 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Rechter kolom: next-event preview (alleen als er een is) */}
-          {nextEvent && (
-            <div className="w-full lg:w-80 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-5 flex flex-col gap-3">
-              <p className="text-primary text-xs font-black uppercase tracking-widest">
-                Eerstvolgende evenement
-              </p>
-              <p className="text-white font-black text-base uppercase leading-tight">
-                {nextEvent.title}
-              </p>
-              <p className="text-gray-400 text-sm">
-                {nextEvent.startDate ? (
-                  <>
-                    {new Date(nextEvent.startDate).toLocaleDateString("nl-BE", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                      timeZone: "Europe/Brussels",
-                    })}
-                    {" · "}
-                    {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      timeZone: "Europe/Brussels",
-                    })}
-                  </>
-                ) : (
-                  "Datum nog niet bekend"
+          {/* Rechter kolom: logo + optioneel next-event preview */}
+          <div className="hidden lg:flex flex-col items-center gap-6 shrink-0">
+            <Image
+              src="/logo_avanti_transparent.svg"
+              alt="Ford Unicars Avanti Brugge Dames"
+              width={320}
+              height={320}
+              className="w-64 xl:w-80 h-auto drop-shadow-2xl"
+              priority
+            />
+
+            {nextEvent && (
+              <div className="w-full max-w-xs bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-5 flex flex-col gap-3">
+                <p className="text-primary text-xs font-black uppercase tracking-widest">
+                  Eerstvolgende evenement
+                </p>
+                <p className="text-white font-black text-base uppercase leading-tight">
+                  {nextEvent.title}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  {nextEvent.startDate ? (
+                    <>
+                      {new Date(nextEvent.startDate).toLocaleDateString("nl-BE", {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        timeZone: "Europe/Brussels",
+                      })}
+                      {" · "}
+                      {new Date(nextEvent.startDate).toLocaleTimeString("nl-BE", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        timeZone: "Europe/Brussels",
+                      })}
+                    </>
+                  ) : (
+                    "Datum nog niet bekend"
+                  )}
+                </p>
+                {nextEvent.twizzitUrl && (
+                  <a
+                    href={nextEvent.twizzitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 w-full text-center px-4 py-2.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold uppercase tracking-wider rounded transition-colors"
+                  >
+                    Inschrijven
+                  </a>
                 )}
-              </p>
-              {nextEvent.twizzitUrl && (
-                <a
-                  href={nextEvent.twizzitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 w-full text-center px-4 py-2.5 bg-primary hover:bg-primary-dark text-white text-xs font-bold uppercase tracking-wider rounded transition-colors"
-                >
-                  Inschrijven
-                </a>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
