@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect, type ComponentType } from "react";
+import { useState, useRef, useEffect } from "react";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-type NavbarProps = {
-  renderDefault: ComponentType<NavbarProps>;
-  [key: string]: unknown;
-};
+// Sanity's internal NavbarProps type is not publicly exported.
+// Using `any` is the correct approach for Studio component customisation
+// — it matches Sanity's ComponentType<NavbarProps> regardless of version.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyProps = any;
 
 // ── Omgevingsconfiguratie ─────────────────────────────────────────────────────
 // Pas de hrefs aan als de URLs wijzigen.
@@ -33,7 +33,7 @@ const COLOR = IS_PRODUCTION
   : { bg: "#1a3a2a", border: "#22c55e", dot: "#22c55e", text: "#86efac", strong: "#f0fdf4" };
 
 // ── Component ─────────────────────────────────────────────────────────────────
-export function DatasetNavbar(props: NavbarProps) {
+export function DatasetNavbar(props: AnyProps) {
   const { renderDefault: DefaultNavbar, ...rest } = props;
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -214,7 +214,7 @@ export function DatasetNavbar(props: NavbarProps) {
       </div>
 
       {/* Standaard Sanity Studio navbar */}
-      <DefaultNavbar {...(rest as NavbarProps)} />
+      <DefaultNavbar {...rest} />
     </div>
   );
 }
