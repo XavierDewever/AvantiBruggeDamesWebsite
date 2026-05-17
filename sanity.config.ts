@@ -7,8 +7,8 @@ export default defineConfig({
   name: "default",
   title: "Website Studio",
 
-  projectId: "8xyvn733",
-  dataset: "production",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "8xyvn733",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
 
   basePath: "/studio",
 
