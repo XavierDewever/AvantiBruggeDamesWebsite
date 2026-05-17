@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./src/sanity/schemas";
+import { DatasetNavbar } from "./src/sanity/components/DatasetNavbar";
 
 export default defineConfig({
   name: "default",
@@ -54,5 +55,11 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+  },
+
+  studio: {
+    components: {
+      navbar: DatasetNavbar,
+    },
   },
 });
