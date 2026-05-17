@@ -19,7 +19,7 @@ const ENVIRONMENTS: { label: string; dataset: string; href: string }[] = [
   {
     label: "Development",
     dataset: "development",
-    href: "http://localhost:3000/studio",       // ← vervang door je Vercel preview URL indien gewenst
+    href: "avanti-brugge-dames-website-git-de-84a979-xavier-s-projects-dev.vercel.app/studio",       // ← vervang door je Vercel preview URL indien gewenst
   },
 ];
 

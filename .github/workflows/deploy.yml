@@ -1,0 +1,11 @@
+name: Trigger Vercel Deploy
+on:
+  repository_dispatch:
+    types: [sanity-update]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Seintje aan Vercel
+        run: curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_sTvCZCEIjBofauqgBAWx1RDN9fzl/fdeYT7Lqt6"
