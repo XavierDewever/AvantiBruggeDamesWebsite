@@ -68,7 +68,7 @@ export default async function SponsorsPage() {
                     <SponsorLink key={sponsor._id ?? displayName} href={sponsor.websiteUrl} label={displayName}>
                       <div className="flex flex-col h-full rounded-xl border-2 border-primary/20 shadow-sm hover:shadow-lg hover:border-primary/50 transition-all duration-300 overflow-hidden group">
                         {/* Logo-zone */}
-                        <div className="flex items-center justify-center bg-white px-8 py-8 min-h-[220px]">
+                        <div className="flex items-center justify-center bg-white px-8 py-8 h-[220px]">
                           {logoSrc ? (
                             <Image
                               src={logoSrc}
