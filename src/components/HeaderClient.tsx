@@ -425,7 +425,7 @@ export default function HeaderClient({ teams }: { teams: TeamForNav[] }) {
 
       {/* ── Mobile menu ───────────────────────────────────────────────── */}
       {menuOpen && (
-        <div className="lg:hidden bg-white border-b-2 border-primary shadow-md">
+        <div className="lg:hidden bg-white border-b-2 border-primary shadow-md overflow-y-auto overscroll-contain max-h-[calc(100dvh-7rem)]">
           <nav className="flex flex-col px-4 py-4 gap-1 max-w-7xl mx-auto">
             <Link
               href="/"
