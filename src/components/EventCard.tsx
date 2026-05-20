@@ -76,50 +76,9 @@ export default function EventCard({
   const displayTitle = title ?? "Evenement";
   const displayType = eventType ?? "event";
   const slugCurrent = slug?.current ?? "";
-  const headerHeight = variant === "full" ? "h-36" : "h-28";
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-lg bg-primary text-white shadow-card">
-
-      {/* ── Kleurband met badges ──────────────────────────────────────────── */}
-      <div className={`relative ${headerHeight} w-full bg-primary-dark flex items-center justify-center overflow-hidden`}>
-        {/* Subtiele achtergrondtextuur */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-10 bg-[repeating-linear-gradient(45deg,#fff_0px,#fff_1px,transparent_1px,transparent_40px)]"
-        />
-
-        {/* Basketbal icoon */}
-        <svg
-          className="w-16 h-16 text-white/10"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path
-            fill="none"
-            stroke="rgba(255,255,255,.25)"
-            strokeWidth="1"
-            d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07"
-          />
-        </svg>
-
-        {/* Type badge */}
-        <span className="absolute top-3 left-3 bg-black/30 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded">
-          {TYPE_LABEL[displayType] ?? displayType}
-        </span>
-
-        {/* Status badge */}
-        {statusCfg && (
-          <span
-            className={`absolute top-3 right-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded ring-1 ${statusCfg.badge}`}
-          >
-            <span className={`w-1.5 h-1.5 rounded-full ${statusCfg.dot}`} />
-            {statusCfg.label}
-          </span>
-        )}
-      </div>
 
       {/* ── Inhoud ─────────────────────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col p-5 gap-3">
@@ -127,9 +86,26 @@ export default function EventCard({
           <p className="text-white/65 text-xs font-semibold uppercase tracking-wide mb-1.5">
             {startDate ? formatDateRange(startDate, endDate) : "Datum niet beschikbaar"}
           </p>
-          <h3 className="font-black text-base lg:text-lg uppercase leading-tight line-clamp-2">
-            {displayTitle}
-          </h3>
+
+          {/* Titel + type badge naast elkaar */}
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-black text-base lg:text-lg uppercase leading-tight line-clamp-2">
+              {displayTitle}
+            </h3>
+            <span className="shrink-0 mt-0.5 bg-black/25 text-white text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded">
+              {TYPE_LABEL[displayType] ?? displayType}
+            </span>
+          </div>
+
+          {/* Status badge */}
+          {statusCfg && (
+            <span
+              className={`mt-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded ring-1 ${statusCfg.badge}`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${statusCfg.dot}`} />
+              {statusCfg.label}
+            </span>
+          )}
         </div>
 
         {/* ── Knop ──────────────────────────────────────────────────────────── */}
