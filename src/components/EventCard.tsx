@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
 
 export type EventCardProps = {
   _id: string | null;
@@ -12,8 +10,7 @@ export type EventCardProps = {
   status?: string | null;
   inschrijving?: string | null;
   twizzitUrl?: string | null;
-  image?: { asset?: unknown; alt?: string } | null;
-  /** Volledige kaartvariant voor de events-pagina (grotere afbeelding, prominentere knop) */
+  /** Volledige kaartvariant voor de events-pagina */
   variant?: "default" | "full";
 };
 
@@ -72,17 +69,10 @@ export default function EventCard({
   status,
   inschrijving,
   twizzitUrl,
-  image,
   variant = "default",
 }: EventCardProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const imgSrc = image?.asset
-    ? urlFor(image as Parameters<typeof urlFor>[0]).width(720).height(variant === "full" ? 400 : 340).fit("crop").url()
-    : null;
-
   const statusCfg = status ? STATUS_CONFIG[status] : null;
   const isVolzet = status === "volzet";
-  const imgHeight = variant === "full" ? "h-52" : "h-44";
   const displayTitle = title ?? "Evenement";
   const displayType = eventType ?? "event";
   const slugCurrent = slug?.current ?? "";
@@ -90,59 +80,32 @@ export default function EventCard({
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-lg bg-primary text-white shadow-card">
 
-      {/* ── Afbeelding ─────────────────────────────────────────────────────── */}
-      <div className={`relative ${imgHeight} w-full overflow-hidden bg-primary-dark`}>
-        {imgSrc ? (
-          <Image
-            src={imgSrc}
-            alt={(image as { alt?: string } | null)?.alt ?? displayTitle}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover opacity-60 group-hover:opacity-75 transition-opacity duration-300"
-          />
-        ) : (
-          /* Basketbal placeholder */
-          <svg
-            className="absolute inset-0 m-auto w-16 h-16 text-white/15"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path
-              fill="none"
-              stroke="rgba(0,0,0,.3)"
-              strokeWidth="1"
-              d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07"
-            />
-          </svg>
-        )}
-
-        {/* Type badge */}
-        <span className="absolute top-3 left-3 bg-black/30 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded">
-          {TYPE_LABEL[displayType] ?? displayType}
-        </span>
-
-        {/* Status badge */}
-        {statusCfg && (
-          <span
-            className={`absolute top-3 right-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded ring-1 ${statusCfg.badge}`}
-          >
-            <span className={`w-1.5 h-1.5 rounded-full ${statusCfg.dot}`} />
-            {statusCfg.label}
-          </span>
-        )}
-      </div>
-
       {/* ── Inhoud ─────────────────────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col p-5 gap-3">
         <div>
           <p className="text-white/65 text-xs font-semibold uppercase tracking-wide mb-1.5">
             {startDate ? formatDateRange(startDate, endDate) : "Datum niet beschikbaar"}
           </p>
-          <h3 className="font-black text-base lg:text-lg uppercase leading-tight line-clamp-2">
-            {displayTitle}
-          </h3>
+
+          {/* Titel + type badge naast elkaar */}
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-black text-base lg:text-lg uppercase leading-tight line-clamp-2">
+              {displayTitle}
+            </h3>
+            <span className="shrink-0 mt-0.5 bg-black/25 text-white text-xs font-bold uppercase tracking-widest px-2 py-0.5 rounded">
+              {TYPE_LABEL[displayType] ?? displayType}
+            </span>
+          </div>
+
+          {/* Status badge */}
+          {statusCfg && (
+            <span
+              className={`mt-2 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded ring-1 ${statusCfg.badge}`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${statusCfg.dot}`} />
+              {statusCfg.label}
+            </span>
+          )}
         </div>
 
         {/* ── Knop ──────────────────────────────────────────────────────────── */}
@@ -178,9 +141,12 @@ export default function EventCard({
             </span>
           ) : (
             /* Geen inschrijving vereist (standaard) */
-            <span className="flex items-center justify-center w-full px-4 py-2.5 bg-white/10 text-white/50 text-xs font-bold uppercase tracking-wider rounded">
+            <Link
+              href={`/evenementen/${slugCurrent}`}
+              className="flex items-center justify-center w-full px-4 py-2.5 bg-white/10 text-white/50 text-xs font-bold uppercase tracking-wider rounded"
+            >
               Geen inschrijving vereist
-            </span>
+            </Link>
           )}
         </div>
       </div>
