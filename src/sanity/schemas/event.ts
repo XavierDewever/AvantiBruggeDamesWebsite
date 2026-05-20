@@ -34,22 +34,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
 
-    // ── Afbeelding ───────────────────────────────────────────
-    defineField({
-      name: "image",
-      title: "Afbeelding",
-      type: "image",
-      options: { hotspot: true },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Alternatieve tekst",
-          type: "string",
-          validation: (Rule) => Rule.required().warning("Altijd een alt-tekst invullen voor toegankelijkheid."),
-        }),
-      ],
-    }),
-
     // ── Datum & tijd ─────────────────────────────────────────
     defineField({
       name: "startDate",
@@ -143,9 +127,8 @@ export default defineType({
       type: "eventType",
       date: "startDate",
       status: "status",
-      media: "image",
     },
-    prepare({ title, type, date, status, media }) {
+    prepare({ title, type, date, status }) {
       const label = type === "stage" ? "Stage" : "Evenement";
       const dateStr = date
         ? new Date(date).toLocaleDateString("nl-BE", { day: "2-digit", month: "short", year: "numeric" })
@@ -154,7 +137,6 @@ export default defineType({
       return {
         title: `${title}${statusBadge}`,
         subtitle: `${label} · ${dateStr}`,
-        media,
       };
     },
   },
