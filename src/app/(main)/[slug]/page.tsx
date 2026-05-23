@@ -23,9 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     { cache: "no-store" },
   );
   if (!page) return { title: "Pagina niet gevonden" };
+  const pageUrl = `https://www.avantibruggedames.be/${slug}`;
   return {
-    title: `${page.title} | Ford Unicars Avanti Brugge Dames`,
+    title: page.title,
     description: page.excerpt ?? undefined,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      title: `${page.title} | Ford Unicars Avanti Brugge Dames`,
+      description: page.excerpt ?? undefined,
+      url: pageUrl,
+    },
   };
 }
 

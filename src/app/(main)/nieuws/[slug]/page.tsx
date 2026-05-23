@@ -29,9 +29,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await client.fetch<Post | null>(POST_BY_SLUG_QUERY, { slug }, { cache: "no-store" });
   if (!post) return {};
+
+  const pageUrl = `https://www.avantibruggedames.be/nieuws/${slug}`;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ogImage = post.mainImage?.asset
+    ? { url: urlFor(post.mainImage as Parameters<typeof urlFor>[0]).width(1200).height(630).fit("crop").url() }
+    : undefined;
+
   return {
-    title: `${post.title ?? "Nieuws"} | Ford Unicars Avanti Brugge Dames`,
+    title: post.title ?? "Nieuws",
     description: post.excerpt ?? undefined,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      type: "article",
+      url: pageUrl,
+      title: `${post.title ?? "Nieuws"} | Ford Unicars Avanti Brugge Dames`,
+      description: post.excerpt ?? undefined,
+      publishedTime: post.publishedAt ?? undefined,
+      images: ogImage ? [ogImage] : undefined,
+    },
   };
 }
 

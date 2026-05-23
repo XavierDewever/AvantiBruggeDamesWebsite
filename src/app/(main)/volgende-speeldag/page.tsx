@@ -6,8 +6,15 @@ import { fetchTeamCalendar, parseVBLDate } from "@/lib/vbl";
 import type { VBLMatch } from "@/lib/vbl";
 
 export const metadata: Metadata = {
-  title: "Volgende Speeldag | Ford Unicars Avanti Brugge Dames",
-  description: "Alle wedstrijden van Avanti Brugge Dames dit weekend.",
+  title: "Volgende Speeldag",
+  description:
+    "Alle wedstrijden van Ford Unicars Avanti Brugge Dames dit weekend — tijden, locaties en tegenstanders.",
+  alternates: { canonical: "https://www.avantibruggedames.be/volgende-speeldag" },
+  openGraph: {
+    title: "Volgende Speeldag | Ford Unicars Avanti Brugge Dames",
+    description: "Wedstrijdprogramma van Avanti Brugge Dames dit weekend.",
+    url: "https://www.avantibruggedames.be/volgende-speeldag",
+  },
 };
 
 type SanityTeam = {

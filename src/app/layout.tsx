@@ -11,9 +11,49 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const BASE_URL = "https://www.avantibruggedames.be";
+
 export const metadata: Metadata = {
-  title: "Ford Unicars Avanti Brugge Dames",
-  description: "Officiële website van Ford Unicars Avanti Brugge Dames basketbalclub.",
+  metadataBase: new URL(BASE_URL),
+
+  title: {
+    default: "Ford Unicars Avanti Brugge Dames",
+    template: "%s | Ford Unicars Avanti Brugge Dames",
+  },
+  description:
+    "Officiële website van Ford Unicars Avanti Brugge Dames — damesbasketbal in Brugge. Bekijk wedstrijdprogramma, nieuws, ploegen en inschrijvingen.",
+  keywords: [
+    "basketbal Brugge",
+    "damesbasketbal Brugge",
+    "Avanti Brugge",
+    "Ford Unicars Avanti",
+    "basketbalclub Brugge",
+    "basketbal West-Vlaanderen",
+    "meisjesbasketbal Brugge",
+  ],
+  authors: [{ name: "Ford Unicars Avanti Brugge Dames", url: BASE_URL }],
+  creator: "Ford Unicars Avanti Brugge Dames",
+
+  openGraph: {
+    type: "website",
+    locale: "nl_BE",
+    url: BASE_URL,
+    siteName: "Ford Unicars Avanti Brugge Dames",
+    title: "Ford Unicars Avanti Brugge Dames",
+    description:
+      "Officiële website van Ford Unicars Avanti Brugge Dames — damesbasketbal in Brugge.",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Ford Unicars Avanti Brugge Dames",
+    description:
+      "Officiële website van Ford Unicars Avanti Brugge Dames — damesbasketbal in Brugge.",
+  },
+
+  alternates: {
+    canonical: BASE_URL,
+  },
 };
 
 export default function RootLayout({

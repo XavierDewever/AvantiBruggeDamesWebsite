@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import ConsentReset from "@/components/ConsentReset";
 
 export const metadata: Metadata = {
-  title: "Cookiebeleid | Ford Unicars Avanti Brugge Dames",
+  title: "Cookiebeleid",
   description:
     "Meer informatie over het gebruik van cookies op de website van Ford Unicars Avanti Brugge Dames.",
+  alternates: { canonical: "https://www.avantibruggedames.be/cookie-policy" },
+  robots: { index: false },
 };
 
 export default function CookiePolicyPage() {

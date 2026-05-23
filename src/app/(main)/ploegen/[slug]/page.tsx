@@ -46,9 +46,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     { cache: "no-store" },
   );
   if (!team) return { title: "Ploeg niet gevonden" };
+
+  const pageUrl = `https://www.avantibruggedames.be/ploegen/${slug}`;
+  const description = team.description
+    ?? `Bekijk het programma, de trainingsuren en de standen van ${team.name ?? "deze ploeg"} van Ford Unicars Avanti Brugge Dames.`;
+
   return {
-    title: `${team.name ?? "Ploeg"} | Ford Unicars Avanti Brugge Dames`,
-    description: team.description ?? undefined,
+    title: team.name ?? "Ploeg",
+    description,
+    alternates: { canonical: pageUrl },
+    openGraph: {
+      title: `${team.name ?? "Ploeg"} | Ford Unicars Avanti Brugge Dames`,
+      description,
+      url: pageUrl,
+    },
   };
 }
 

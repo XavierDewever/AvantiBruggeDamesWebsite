@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-05-16T08:19:09.028Z",
+  "createdAt": "2026-05-20T20:19:07.514Z",
   "studioVersion": "5.24.0",
   "version": 3,
   "workspaces": [
@@ -13,7 +13,7 @@
       },
       "name": "default",
       "projectId": "8xyvn733",
-      "schema": "5175fed6.create-schema.json",
+      "schema": "fe7f15ee.create-schema.json",
       "title": "Website Studio",
       "tools": "ef87c8fe.create-tools.json"
     }

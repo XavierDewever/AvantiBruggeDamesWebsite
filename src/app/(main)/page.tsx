@@ -1,9 +1,24 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_EVENTS_QUERY, HOMEPAGE_POSTS_QUERY } from "@/sanity/lib/queries";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
 import NewsCard, { type NewsCardProps } from "@/components/NewsCard";
+
+export const metadata: Metadata = {
+  title: "Ford Unicars Avanti Brugge Dames",
+  description:
+    "Officiële website van Ford Unicars Avanti Brugge Dames — damesbasketbal in Brugge. Bekijk wedstrijdprogramma, nieuws, ploegen en schrijf je in voor onze stages.",
+  alternates: { canonical: "https://www.avantibruggedames.be" },
+  openGraph: {
+    title: "Ford Unicars Avanti Brugge Dames",
+    description:
+      "Damesbasketbal in Brugge — wedstrijdprogramma, nieuws, ploegen en stages.",
+    url: "https://www.avantibruggedames.be",
+    type: "website",
+  },
+};
 
 export default async function HomePage() {
   const now = new Date().toISOString();

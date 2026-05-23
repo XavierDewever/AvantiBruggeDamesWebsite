@@ -6,9 +6,15 @@ import { ALL_POSTS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 
 export const metadata: Metadata = {
-  title: "Nieuws | Ford Unicars Avanti Brugge Dames",
+  title: "Nieuws",
   description:
-    "Het laatste nieuws van Ford Unicars Avanti Brugge Dames.",
+    "Het laatste nieuws van Ford Unicars Avanti Brugge Dames — clubupdates, wedstrijdverslagen en aankondigingen.",
+  alternates: { canonical: "https://www.avantibruggedames.be/nieuws" },
+  openGraph: {
+    title: "Nieuws | Ford Unicars Avanti Brugge Dames",
+    description: "Het laatste nieuws van Ford Unicars Avanti Brugge Dames.",
+    url: "https://www.avantibruggedames.be/nieuws",
+  },
 };
 
 type Post = {
