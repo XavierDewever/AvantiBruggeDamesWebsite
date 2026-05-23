@@ -6,8 +6,15 @@ import { urlFor } from "@/sanity/lib/image";
 import { ALL_TEAMS_QUERY } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Ploegen | Ford Unicars Avanti Brugge Dames",
-  description: "Bekijk alle ploegen van Ford Unicars Avanti Brugge Dames — van bovenbouw tot onderbouw.",
+  title: "Onze Ploegen",
+  description:
+    "Bekijk alle ploegen van Ford Unicars Avanti Brugge Dames — van bovenbouw tot onderbouw.",
+  alternates: { canonical: "https://www.avantibruggedames.be/ploegen" },
+  openGraph: {
+    title: "Onze Ploegen | Ford Unicars Avanti Brugge Dames",
+    description: "Alle ploegen van Avanti Brugge Dames — van bovenbouw tot onderbouw.",
+    url: "https://www.avantibruggedames.be/ploegen",
+  },
 };
 
 type Team = {

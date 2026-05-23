@@ -3,9 +3,15 @@ import { client } from "@/sanity/lib/client";
 import { LID_WORDEN_QUERY } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Lid worden | Ford Unicars Avanti Brugge Dames",
+  title: "Lid worden",
   description:
-    "Word lid van Ford Unicars Avanti Brugge Dames of schrijf je in voor de basketbalschool.",
+    "Word lid van Ford Unicars Avanti Brugge Dames of schrijf je in voor de basketbalschool in Brugge.",
+  alternates: { canonical: "https://www.avantibruggedames.be/lid-worden" },
+  openGraph: {
+    title: "Lid worden | Ford Unicars Avanti Brugge Dames",
+    description: "Word lid of schrijf je in voor de basketbalschool van Avanti Brugge Dames.",
+    url: "https://www.avantibruggedames.be/lid-worden",
+  },
 };
 
 // Fallback-teksten als het Sanity-document nog niet bestaat

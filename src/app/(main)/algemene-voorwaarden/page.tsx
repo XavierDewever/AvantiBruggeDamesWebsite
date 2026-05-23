@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Algemene Voorwaarden | Ford Unicars Avanti Brugge Dames",
+  title: "Algemene Voorwaarden",
   description:
     "Algemene voorwaarden en herroepingsrecht voor de webshop en merchandise van Avanti Brugge Dames VZW.",
+  alternates: { canonical: "https://www.avantibruggedames.be/algemene-voorwaarden" },
+  robots: { index: false },
 };
 
 const SECTIONS = [

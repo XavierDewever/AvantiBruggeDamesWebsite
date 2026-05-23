@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacyverklaring | Ford Unicars Avanti Brugge Dames",
+  title: "Privacyverklaring",
   description:
     "Lees hoe basketbalclub Avanti Brugge Dames omgaat met uw persoonsgegevens conform de GDPR-wetgeving.",
+  alternates: { canonical: "https://www.avantibruggedames.be/privacy-verklaring" },
+  robots: { index: false },
 };
 
 export default function PrivacyVerklaringPage() {

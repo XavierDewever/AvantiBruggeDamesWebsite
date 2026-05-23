@@ -670,33 +670,6 @@
       },
       {
         "options": {
-          "hotspot": true
-        },
-        "fields": [
-          {
-            "validation": [
-              {
-                "level": "warning",
-                "rules": [
-                  {
-                    "flag": "presence",
-                    "constraint": "required"
-                  }
-                ],
-                "message": "Altijd een alt-tekst invullen voor toegankelijkheid."
-              }
-            ],
-            "name": "alt",
-            "type": "string",
-            "title": "Alternatieve tekst"
-          }
-        ],
-        "name": "image",
-        "type": "image",
-        "title": "Afbeelding"
-      },
-      {
-        "options": {
           "dateFormat": "DD/MM/YYYY",
           "timeFormat": "HH:mm",
           "timeStep": 15

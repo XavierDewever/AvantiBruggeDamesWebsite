@@ -5,9 +5,15 @@ import { CONTACT_PAGINA_QUERY } from "@/sanity/lib/queries";
 type Sporthal = { naam?: string; adres?: string; extra?: string };
 
 export const metadata: Metadata = {
-  title: "Contact | Ford Unicars Avanti Brugge Dames",
+  title: "Contact",
   description:
-    "Neem contact op met Ford Unicars Avanti Brugge Dames via e-mail of ons Twizzit-contactformulier.",
+    "Neem contact op met Ford Unicars Avanti Brugge Dames via e-mail of ons contactformulier. Basketbalclub gevestigd in Brugge.",
+  alternates: { canonical: "https://www.avantibruggedames.be/contact" },
+  openGraph: {
+    title: "Contact | Ford Unicars Avanti Brugge Dames",
+    description: "Neem contact op met basketbalclub Avanti Brugge Dames.",
+    url: "https://www.avantibruggedames.be/contact",
+  },
 };
 
 // Fallback-waarden als het Sanity-document nog niet is aangemaakt

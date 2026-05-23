@@ -6,9 +6,15 @@ import FilterTabs, { type FilterType } from "@/components/FilterTabs";
 import EventCard, { type EventCardProps } from "@/components/EventCard";
 
 export const metadata: Metadata = {
-  title: "Evenementen | Ford Unicars Avanti Brugge Dames",
+  title: "Evenementen & Stages",
   description:
     "Bekijk alle evenementen en stages van Ford Unicars Avanti Brugge Dames en schrijf je in via Twizzit.",
+  alternates: { canonical: "https://www.avantibruggedames.be/evenementen" },
+  openGraph: {
+    title: "Evenementen & Stages | Ford Unicars Avanti Brugge Dames",
+    description: "Alle evenementen en basketbalstages van Avanti Brugge Dames.",
+    url: "https://www.avantibruggedames.be/evenementen",
+  },
 };
 
 const VALID_TYPES = ["stage", "event"] as const;

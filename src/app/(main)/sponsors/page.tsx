@@ -5,9 +5,15 @@ import { urlFor } from "@/sanity/lib/image";
 import { ALL_SPONSORS_QUERY } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Sponsors | Ford Unicars Avanti Brugge Dames",
+  title: "Onze Sponsors",
   description:
     "Dank aan alle partners en sponsors die Ford Unicars Avanti Brugge Dames mogelijk maken.",
+  alternates: { canonical: "https://www.avantibruggedames.be/sponsors" },
+  openGraph: {
+    title: "Onze Sponsors | Ford Unicars Avanti Brugge Dames",
+    description: "Alle partners en sponsors van Avanti Brugge Dames.",
+    url: "https://www.avantibruggedames.be/sponsors",
+  },
 };
 
 type Sponsor = {

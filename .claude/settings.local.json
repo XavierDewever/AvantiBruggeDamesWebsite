@@ -40,7 +40,8 @@
       "Bash(curl -s \"https://8xyvn733.api.sanity.io/v2024-01-01/data/query/production?query=*%5B_type+%3D%3D+%22event%22%5D%7B_id%2C+title%2C+image%7D%5B0..1%5D\")",
       "Bash(python3 -m json.tool)",
       "Bash(curl -s http://localhost:3000/evenementen)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(git commit -m 'EventCard: remove header band, move type badge inline with title *)"
     ]
   }
 }
