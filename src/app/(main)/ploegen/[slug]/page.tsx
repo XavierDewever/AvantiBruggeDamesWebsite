@@ -7,7 +7,6 @@ import { TEAM_BY_SLUG_QUERY, ALL_TEAM_SLUGS_QUERY } from "@/sanity/lib/queries";
 import { fetchVBLData } from "@/lib/vbl";
 import VBLCalendar from "@/components/VBLCalendar";
 import VBLStandings from "@/components/VBLStandings";
-import VBLUpcoming from "@/components/VBLUpcoming";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -74,8 +73,7 @@ export default async function PloegPage({ params }: Props) {
 
   if (!team) notFound();
 
-  // Seniorploegen (DSE-prefix) krijgen volledige VBL-data incl. klassement
-  // Jeugdploegen krijgen enkel de kalender (voor de "Volgende wedstrijden"-sectie)
+  // Seniorploegen (DSE-prefix) krijgen ook het klassement
   const isSeniorTeam = team.basketVlaanderenId?.startsWith("DSE") ?? false;
 
   const { calendar, standings } = team.basketVlaanderenId
@@ -189,17 +187,12 @@ export default async function PloegPage({ params }: Props) {
 
           {/* ── Rechter kolom: live VBL data ──────────────────────────────── */}
           <div className="lg:col-span-2 space-y-10">
-            {isSeniorTeam && (
-              <div>
-                <SectionLabel accent>Wedstrijdkalender</SectionLabel>
-                <VBLCalendar calendar={calendar} highlightTeam={team.name ?? ""} />
-              </div>
-            )}
             <div>
-              <SectionLabel accent>Volgende wedstrijden</SectionLabel>
-              <VBLUpcoming
-                matches={calendar.upcoming.slice(0, 5)}
+              <SectionLabel accent>Wedstrijdkalender</SectionLabel>
+              <VBLCalendar
+                calendar={calendar}
                 highlightTeam={team.name ?? ""}
+                upcomingOnly
               />
             </div>
             {isSeniorTeam && (
