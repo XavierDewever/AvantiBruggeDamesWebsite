@@ -180,3 +180,27 @@ export function formatVBLDate(datumString: string): string {
     year: "numeric",
   });
 }
+
+/**
+ * Verkort de volledige VBL-teamnaam tot een leesbare interne naam.
+ *
+ * "Ford Unicars Avanti Brugge Dames A"   → "One"
+ * "Ford Unicars Avanti Brugge Dames B"   → "Rise"
+ * "Ford Unicars Avanti Brugge Dames M14A" → "M14A"
+ * "Andere Club BC"                        → ongewijzigd
+ */
+const AVANTI_SUFFIX_MAP: Record<string, string> = {
+  A: "One",
+  B: "Rise",
+};
+
+export function shortenTeamName(name: string): string {
+  // Herken alle varianten van de volledige clubnaam (met of zonder titelsponsor)
+  const match = name.match(/avanti\s+brugge\s+dames\s*(.*)/i);
+  if (!match) return name;
+
+  const suffix = match[1].trim();
+  if (!suffix) return "Avanti";
+
+  return AVANTI_SUFFIX_MAP[suffix] ?? suffix;
+}

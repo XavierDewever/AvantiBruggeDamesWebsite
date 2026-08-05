@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { ALL_TEAMS_QUERY } from "@/sanity/lib/queries";
-import { fetchTeamCalendar, parseVBLDate } from "@/lib/vbl";
+import { fetchTeamCalendar, parseVBLDate, shortenTeamName } from "@/lib/vbl";
 import type { VBLMatch } from "@/lib/vbl";
 
 export const metadata: Metadata = {
@@ -208,13 +208,13 @@ function MatchRow({ match }: { match: VBLMatch }) {
         {/* Teams */}
         <div className="flex-1 flex items-center gap-2 min-w-0">
           <span className={`flex-1 text-right text-sm truncate ${homeIsAvanti ? "font-black text-primary" : "font-semibold text-gray-800"}`}>
-            {match.tTNaam}
+            {shortenTeamName(match.tTNaam)}
           </span>
           <span className="shrink-0 text-xs font-black text-gray-400 uppercase tracking-wider px-2">
             vs
           </span>
           <span className={`flex-1 text-left text-sm truncate ${awayIsAvanti ? "font-black text-primary" : "font-semibold text-gray-800"}`}>
-            {match.tUNaam}
+            {shortenTeamName(match.tUNaam)}
           </span>
         </div>
 
