@@ -1,5 +1,5 @@
 import type { VBLMatch, VBLCalendarResult } from "@/lib/vbl";
-import { formatVBLDate } from "@/lib/vbl";
+import { formatVBLDate, shortenTeamName } from "@/lib/vbl";
 
 type Props = {
   calendar: VBLCalendarResult;
@@ -109,7 +109,7 @@ function MatchList({
                   : "text-gray-700 font-medium"
               }`}
             >
-              {match.tTNaam}
+              {shortenTeamName(match.tTNaam)}
             </p>
 
             {/* Score / vs */}
@@ -133,7 +133,7 @@ function MatchList({
                   : "text-gray-700 font-medium"
               }`}
             >
-              {match.tUNaam}
+              {shortenTeamName(match.tUNaam)}
             </p>
           </li>
         );
